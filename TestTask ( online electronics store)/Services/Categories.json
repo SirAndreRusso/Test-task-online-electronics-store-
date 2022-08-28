@@ -1,0 +1,28 @@
+[
+    {
+        "category": "Phones",
+        "imageForNormal": "Phones",
+        "imageForPressed": "PhonesPressed"
+    },
+    {
+        "category": "Computer",
+        "imageForNormal": "Computer",
+        "imageForPressed": "ComputerPressed"
+    },
+    {
+        "category": "Health",
+        "imageForNormal": "Health",
+        "imageForPressed": "HealthPressed"
+    },
+    {
+        "category": "Books",
+        "imageForNormal": "Books",
+        "imageForPressed": "BooksPressed"
+    },
+    {
+        "category": "Other",
+        "imageForNormal": "Other",
+        "imageForPressed": "OtherPressed"
+    }
+]
+

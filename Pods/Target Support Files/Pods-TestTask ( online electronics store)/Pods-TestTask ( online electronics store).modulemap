@@ -1,0 +1,6 @@
+framework module Pods_TestTask___online_electronics_store_ {
+  umbrella header "Pods-TestTask ( online electronics store)-umbrella.h"
+
+  export *
+  module * { export * }
+}
