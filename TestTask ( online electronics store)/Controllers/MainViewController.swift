@@ -40,9 +40,40 @@ class MainViewController: UIViewController {
         fetchData()
         setUpCollectionView()
         createDiffableDatasource()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.reloadData()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            self.reloadData()
+//        }
+        
+        createBarButtonItem()
+        
+        
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.shouldRemoveShadow(true)
+    }
+    
+// MARK: - createBarButtonItem()
+    
+    private func createBarButtonItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "FilterImage")!.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(pushFilterVC))
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+       
+        
+//        let showFilterVCAction = UIAction { [weak self] _ in
+//            guard let self = self else {return}
+//            let filterVC = FilterViewController()
+//            self.navigationController?.pushViewController(filterVC, animated: true)
+//        }
+    }
+    @objc private func pushFilterVC() {
+        let filterVC = FilterViewController()
+        filterVC.modalPresentationStyle = .overCurrentContext
+        self.present(filterVC, animated: false)
     }
 // MARK: - fetchData()
     
@@ -53,7 +84,7 @@ class MainViewController: UIViewController {
                 
             case .success(let categories):
                 self.categories = categories
-                print("categories count: \(categories.count)")
+                self.reloadData()
             case .failure(let error):
                 self.showAlert(with: "Ошибка!", and: error.localizedDescription)
             }
@@ -65,7 +96,7 @@ class MainViewController: UIViewController {
 
             case .success(let hotSales):
                 self.hotSales = hotSales
-                print("hotSales count: \(hotSales.count)")
+                self.reloadData()
 
             case .failure(let error):
                 self.showAlert(with: "Ошибка!", and: error.localizedDescription)
@@ -79,7 +110,7 @@ class MainViewController: UIViewController {
                 
             case .success(let bestSeller):
                 self.bestSeller = bestSeller
-                print("bestSellers count: \(bestSeller.count)")
+                self.reloadData()
                 
             case .failure(let error):
                 self.showAlert(with: "Ошибка!", and: error.localizedDescription)
@@ -120,6 +151,7 @@ class MainViewController: UIViewController {
 
 extension MainViewController {
     private func createDiffableDatasource()  {
+        fetchData()
         dataSource = UICollectionViewDiffableDataSource<SectionTypes, AnyHashable>(collectionView: categoryCollectionView!, cellProvider: {  (collectionView, indexPath, item) -> UICollectionViewCell? in
             guard let section = SectionTypes(rawValue: indexPath.section) else {
                 fatalError("Unknown section kind")}
@@ -130,6 +162,7 @@ extension MainViewController {
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
                         cell.configure(category: categories.category, imageForNormal: categories.imageForNormal, imageForPressed: categories.imageForPressed)
                         return cell
+                        
                     } else {return nil}
                 case .hotSales:
                     if let hotSales = item as? HotSales {

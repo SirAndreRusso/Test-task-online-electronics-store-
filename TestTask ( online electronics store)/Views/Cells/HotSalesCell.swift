@@ -10,7 +10,7 @@ class HotSalesCell: UICollectionViewCell {
     static let identifier = "HotSalesCell"
     
     private let pictureImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         imageView.layer.masksToBounds = true
@@ -37,7 +37,7 @@ class HotSalesCell: UICollectionViewCell {
         brandLabel.font = UIFont(name: "SFProDisplay-Bold", size: 25)
         brandLabel.textAlignment = .center
         brandLabel.numberOfLines = 0
-      
+        
         return brandLabel
     }()
     
@@ -59,7 +59,7 @@ class HotSalesCell: UICollectionViewCell {
         buyNowButton.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 11)
         buyNowButton.isEnabled = true
         return buyNowButton
-
+        
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,9 +68,9 @@ class HotSalesCell: UICollectionViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
         contentView.addSubview(buyNowButton)
-
+        
     }
- 
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -79,7 +79,7 @@ class HotSalesCell: UICollectionViewCell {
         super.layoutSubviews()
         pictureImageView.frame = contentView.bounds
         configureCellLayout()
-
+        
     }
     
     private func configureCellLayout() {
@@ -99,7 +99,7 @@ class HotSalesCell: UICollectionViewCell {
         buyNowButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32).isActive = true
         buyNowButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 142).isActive = true
         
-
+        
         newImageView.translatesAutoresizingMaskIntoConstraints = false
         newImageView.widthAnchor.constraint(equalToConstant: 27).isActive = true
         newImageView.heightAnchor.constraint(equalToConstant: 27).isActive = true
@@ -118,23 +118,10 @@ class HotSalesCell: UICollectionViewCell {
         if isBuy == nil {
             buyNowButton.isHidden = true
         }
-            guard let url = URL(string: picture) else {return}
-            pictureImageView.sd_setImage(with: url)
-            
+        guard let url = URL(string: picture) else {return}
+        pictureImageView.sd_setImage(with: url)
         
         
-        
-
-}
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        pictureImageView.image = nil
-        titleLabel.text = nil
-        subtitleLabel.text = nil
-        buyNowButton.isHidden = true
-        newImageView.isHidden = true
     }
     
 }
-

@@ -44,7 +44,7 @@ class NetworkManager {
                 DispatchQueue.main.async {
                     completion(.success(fetchedStore.hotSales))
                 }
-            } else {print("WTF")}
+            } 
             
         } .resume()
     }
@@ -65,7 +65,7 @@ class NetworkManager {
                 DispatchQueue.main.async {
                     completion(.success(fetchedStore.bestSeller))
                 }
-            } else {print("WTF")}
+            }
             
         } .resume()
     }

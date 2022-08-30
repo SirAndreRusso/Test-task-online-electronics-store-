@@ -128,13 +128,13 @@ class BestSellerCell: UICollectionViewCell {
 
 }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        pictureImageView.image = nil
-        nameLabel.text = nil
-        priceLabel.text = nil
-        discountPriceLabel.text = nil
- 
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        pictureImageView.image = nil
+//        nameLabel.text = nil
+//        priceLabel.text = nil
+//        discountPriceLabel.text = nil
+// 
+//    }
    
 }

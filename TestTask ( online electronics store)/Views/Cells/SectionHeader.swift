@@ -16,7 +16,7 @@ class SectionHeader: UICollectionReusableView {
         view.textColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
         view.font = UIFont(name: "MarkPro-Bold", size: 25)
         view.textAlignment = .center
-        view.attributedText = NSMutableAttributedString(string: "Select Category", attributes: [NSAttributedString.Key.kern: -0.33])
+        view.attributedText = NSMutableAttributedString(string: "view all", attributes: [NSAttributedString.Key.kern: -0.33])
         return view
     }()
     var openButton: UIButton = {

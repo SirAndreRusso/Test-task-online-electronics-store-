@@ -72,12 +72,6 @@ class CategoryCell: UICollectionViewCell {
         whiteImageView.image = UIImage(named: imageForNormal)
 }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        orangeImageView.image = nil
-        whiteImageView.image = nil
-        categoryLabel.text = nil
-    }
     
     func showImageView() {
         whiteImageView.alpha = 1.0
