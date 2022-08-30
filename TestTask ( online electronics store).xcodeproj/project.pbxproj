@@ -29,7 +29,6 @@
 		B4F61C3028BC25750078473B /* UIBarButtonItem + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F61C2F28BC25750078473B /* UIBarButtonItem + Extension.swift */; };
 		B4F61C3228BCBACC0078473B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F61C3128BCBACC0078473B /* FilterViewController.swift */; };
 		B4F61C3628BCC4CE0078473B /* UINavigationBar + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F61C3528BCC4CE0078473B /* UINavigationBar + Extension.swift */; };
-		B4F61C3828BD68EB0078473B /* FilterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F61C3728BD68EB0078473B /* FilterLabel.swift */; };
 		B4F61C3A28BE18D30078473B /* DropDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F61C3928BE18D30078473B /* DropDownButton.swift */; };
 		B4F7D64028B7DFCA00192D95 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F7D63F28B7DFCA00192D95 /* SectionHeader.swift */; };
 		B4F7D64228B805D900192D95 /* ViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F7D64128B805D900192D95 /* ViewController + Extension.swift */; };
@@ -65,7 +64,6 @@
 		B4F61C2F28BC25750078473B /* UIBarButtonItem + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem + Extension.swift"; sourceTree = "<group>"; };
 		B4F61C3128BCBACC0078473B /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		B4F61C3528BCC4CE0078473B /* UINavigationBar + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar + Extension.swift"; sourceTree = "<group>"; };
-		B4F61C3728BD68EB0078473B /* FilterLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLabel.swift; sourceTree = "<group>"; };
 		B4F61C3928BE18D30078473B /* DropDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownButton.swift; sourceTree = "<group>"; };
 		B4F7D63F28B7DFCA00192D95 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		B4F7D64128B805D900192D95 /* ViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController + Extension.swift"; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 		B47F3E3E28B397F0000EA9FD /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B4F61C3728BD68EB0078473B /* FilterLabel.swift */,
 				B4F61C3928BE18D30078473B /* DropDownButton.swift */,
 				B4F3E80C28B4EA030004C641 /* Cells */,
 			);
@@ -355,7 +352,6 @@
 				B4F7D64728B8C4F600192D95 /* NetworkManager.swift in Sources */,
 				B4F61C3A28BE18D30078473B /* DropDownButton.swift in Sources */,
 				B4F61C3628BCC4CE0078473B /* UINavigationBar + Extension.swift in Sources */,
-				B4F61C3828BD68EB0078473B /* FilterLabel.swift in Sources */,
 				B47F3E2C28B391BE000EA9FD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,7 +7,15 @@
 
 import UIKit
 
+import DropDown
+
 class FilterViewController: UIViewController {
+    
+    let brandDropDown = DropDown()
+    let priceDropDown = DropDown()
+    let brandDataSource = ["Samsung", "Apple", "Xiaomi"]
+    let priceDataSource = ["$0 - $1000", "$1000 - $5000", "$5000 - $10000"]
+    
 
     lazy var titleLabel: UILabel = {
          let label = UILabel()
@@ -18,20 +26,19 @@ class FilterViewController: UIViewController {
         return label
         
      }()
-     
- //TODO: - Set Up constraints
     
     lazy var closeButton: UIButton = {
        let closeButton = UIButton()
         closeButton.setImage(UIImage(named: "CloseButton"), for: .normal)
-//        closeButton.addTarget(self, action: #selector(handleCloseAction), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(animateDismissView), for: .touchUpInside)
         return closeButton
     }()
+    
     
     lazy var doneButton: UIButton = {
        let doneButton = UIButton()
         doneButton.setImage(UIImage(named: "DoneButton"), for: .normal)
-//        doneButton.addTarget(self, action: #selector(handleCloseAction), for: .touchUpInside)
+        doneButton.addTarget(self, action: #selector(animateDismissView), for: .touchUpInside)
         return doneButton
     }()
     
@@ -66,11 +73,13 @@ class FilterViewController: UIViewController {
     
     lazy var brandButton: DropDownButton = {
        let brandButton = DropDownButton(stringTitle: "Samsung")
+        brandButton.addTarget(self, action: #selector(showBrands), for: .touchUpInside)
         return brandButton
     }()
     
     lazy var priceButton: DropDownButton = {
        let priceButton = DropDownButton(stringTitle: "$0 - $10000")
+        priceButton.addTarget(self, action: #selector(showPrice), for: .touchUpInside)
         return priceButton
     }()
     
@@ -114,13 +123,45 @@ class FilterViewController: UIViewController {
          // tap gesture on dimmed view to dismiss
          let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleCloseAction))
          dimmedView.addGestureRecognizer(tapGesture)
-         
          setupPanGesture()
+         setUpDropDown()
+         
      }
-     
-     @objc func handleCloseAction() {
+    
+    
+    private func setUpDropDown() {
+    brandDropDown.anchorView = brandButton
+    priceDropDown.anchorView = priceButton
+    brandDropDown.direction = .bottom
+    priceDropDown.direction = .bottom
+        brandDropDown.bottomOffset = CGPoint(x: 0, y: 37)
+        priceDropDown.bottomOffset = CGPoint(x: 0, y: 37)
+    brandDropDown.dataSource = brandDataSource
+    priceDropDown.dataSource = priceDataSource
+    
+    brandDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+        let stringTitle = brandDataSource[index]
+        let atributedTitle = NSMutableAttributedString(string: stringTitle, attributes: [NSAttributedString.Key.kern: -0.33])
+        self.brandButton.setAttributedTitle(atributedTitle, for: .normal)
+        }
+        
+    priceDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+        let stringTitle = priceDataSource[index]
+        let atributedTitle = NSMutableAttributedString(string: stringTitle, attributes: [NSAttributedString.Key.kern: -0.33])
+        self.priceButton.setAttributedTitle(atributedTitle, for: .normal)
+        }
+    }
+    
+    @objc func showBrands() {
+        brandDropDown.show()
+    }
+    @objc func showPrice() {
+        priceDropDown.show()
+    }
+    
+    @objc func handleCloseAction() {
          animateDismissView()
-     }
+    }
      
      override func viewDidAppear(_ animated: Bool) {
          super.viewDidAppear(animated)
@@ -244,14 +285,7 @@ class FilterViewController: UIViewController {
      // MARK: Pan gesture handler
      @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
          let translation = gesture.translation(in: view)
-         // Drag to top will be minus value and vice versa
-         print("Pan gesture y offset: \(translation.y)")
-         
-         // Get drag direction
          let isDraggingDown = translation.y > 0
-         print("Dragging direction: \(isDraggingDown ? "going down" : "going up")")
-         
-         // New height is based on value of dragging plus current container height
          let newHeight = currentContainerHeight - translation.y
          
          // Handle based on gesture state
@@ -317,7 +351,7 @@ class FilterViewController: UIViewController {
          }
      }
      
-     func animateDismissView() {
+    @objc func animateDismissView() {
          // hide blur view
          dimmedView.alpha = maxDimmedAlpha
          UIView.animate(withDuration: 0.4) {

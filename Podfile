@@ -7,5 +7,6 @@ target 'TestTask ( online electronics store)' do
 
   # Pods for TestTask ( online electronics store)
 pod 'SDWebImage' 
+pod 'DropDown'
 
 end
