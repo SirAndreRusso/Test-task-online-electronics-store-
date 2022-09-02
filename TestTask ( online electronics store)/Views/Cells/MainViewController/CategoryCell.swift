@@ -7,22 +7,24 @@
 
 import UIKit
 class CategoryCell: UICollectionViewCell {
+    
     static let identifier = "CategoryCell"
+    
     let parentView: UIView = {
         let parentView = UIView(frame: CGRect(x: 0, y: 0, width: 71, height: 93))
         parentView.layer.backgroundColor = nil
         return parentView
     }()
+    
     var categoryLabel: UILabel = {
        let categoryLabel = UILabel()
         categoryLabel.textColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
         categoryLabel.font = UIFont(name: "MarkPro-Medium", size: 12)
         categoryLabel.textAlignment = .center
         categoryLabel.attributedText = NSMutableAttributedString(string: "Phones", attributes: [NSAttributedString.Key.kern: -0.33])
-
-
         return categoryLabel
     }()
+    
     private let orangeImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -32,7 +34,6 @@ class CategoryCell: UICollectionViewCell {
         imageView.backgroundColor = .specialOrange()
         return imageView
     }()
-    
     
     private let whiteImageView: UIImageView = {
        let imageView = UIImageView()
@@ -46,13 +47,10 @@ class CategoryCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        self.backgroundColor = .red
         contentView.addSubview(parentView)
         parentView.addSubview(orangeImageView)
         parentView.addSubview(whiteImageView)
         parentView.addSubview(categoryLabel)
-        
-        
     }
  
     required init?(coder: NSCoder) {
@@ -102,7 +100,7 @@ class CategoryCell: UICollectionViewCell {
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         categoryLabel.widthAnchor.constraint(equalToConstant: 71).isActive = true
         categoryLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        categoryLabel.topAnchor.constraint(equalTo: parentView.bottomAnchor, constant: 78).isActive = true
+        categoryLabel.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 78).isActive = true
         categoryLabel.leadingAnchor.constraint(equalTo: parentView.leadingAnchor).isActive = true
         categoryLabel.trailingAnchor.constraint(equalTo: parentView.trailingAnchor).isActive = true
         categoryLabel.bottomAnchor.constraint(equalTo: parentView.bottomAnchor).isActive = true

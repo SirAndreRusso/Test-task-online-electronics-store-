@@ -7,6 +7,7 @@
 
 import UIKit
 class HotSalesCell: UICollectionViewCell {
+    
     static let identifier = "HotSalesCell"
     
     private let pictureImageView: UIImageView = {
@@ -18,7 +19,6 @@ class HotSalesCell: UICollectionViewCell {
         imageView.backgroundColor = .lightGray
         return imageView
     }()
-    
     
     private let newImageView: UIImageView = {
         let newImageView = UIImageView()
@@ -37,7 +37,6 @@ class HotSalesCell: UICollectionViewCell {
         brandLabel.font = UIFont(name: "SFProDisplay-Bold", size: 25)
         brandLabel.textAlignment = .center
         brandLabel.numberOfLines = 0
-        
         return brandLabel
     }()
     
@@ -50,7 +49,7 @@ class HotSalesCell: UICollectionViewCell {
         return subtitleLabel
     }()
     
-    private let buyNowButton: UIButton = {
+     let buyNowButton: UIButton = {
         var buyNowButton = UIButton(type: .system)
         buyNowButton.backgroundColor = .white
         buyNowButton.setTitleColor(UIColor.black, for: .normal)
@@ -61,6 +60,7 @@ class HotSalesCell: UICollectionViewCell {
         return buyNowButton
         
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(pictureImageView)
@@ -120,8 +120,6 @@ class HotSalesCell: UICollectionViewCell {
         }
         guard let url = URL(string: picture) else {return}
         pictureImageView.sd_setImage(with: url)
-        
-        
     }
     
 }
