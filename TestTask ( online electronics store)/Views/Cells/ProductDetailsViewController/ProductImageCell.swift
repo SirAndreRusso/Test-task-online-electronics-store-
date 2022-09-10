@@ -17,9 +17,7 @@ class ProductImageCell: UICollectionViewCell {
         productImageView.backgroundColor = .white
         productImageView.contentMode = .scaleAspectFit
         productImageView.layer.masksToBounds = true
-        productImageView.layer.cornerRadius = 10
         productImageView.layer.cornerRadius = 20
-        
         return productImageView
     }()
     

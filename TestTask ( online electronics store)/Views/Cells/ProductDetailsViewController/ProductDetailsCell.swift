@@ -62,14 +62,14 @@ class ProductDetailsCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//MARK: - layoutSubviews()
+    //MARK: - layoutSubviews()
     
     override func layoutSubviews() {
         super.layoutSubviews()
         configureCellLayout()
     }
     
-//MARK: - configure()
+    //MARK: - configure()
     
     public func configure(title: String, isFavourites: Bool, rating: Double, cpu: String, camera: String, ssd: String, sd: String, price: Int) {
         titleLabel.attributedText = NSMutableAttributedString(string: title, attributes: [NSAttributedString.Key.kern: -0.33])
@@ -97,7 +97,7 @@ class ProductDetailsCell: UICollectionViewCell {
         addToCartButton.configure(price: price)
     }
     
-// MARK: - Container view
+    // MARK: - Container view
     
     let containerView: UIView = {
         let containerView = UIView()
@@ -126,7 +126,7 @@ class ProductDetailsCell: UICollectionViewCell {
         return favoriteImageView
     }()
     
-// MARK: - Rating stackView
+    // MARK: - Rating stackView
     
     let titleStackView: UIStackView = {
         let titleStackView = UIStackView()
@@ -180,7 +180,7 @@ class ProductDetailsCell: UICollectionViewCell {
         return ratingStackView
     }()
     
-// MARK: - Labels stackView
+    // MARK: - Labels stackView
     
     let shopLabel: UILabel = {
         let shopLabel = UILabel()
@@ -227,7 +227,7 @@ class ProductDetailsCell: UICollectionViewCell {
         return lineView
     }()
     
-// MARK: - Details stackView
+    // MARK: - Details stackView
     
     var cpuView: DetailsCustomView = {
         let cpuView = DetailsCustomView(title: "CPU", picture: "CPU")
@@ -254,7 +254,7 @@ class ProductDetailsCell: UICollectionViewCell {
         return detailsStackView
     }()
     
-// MARK: - Select color and capacity label
+    // MARK: - Select color and capacity label
     
     let selectColorAndCapacitylabel: UILabel = {
         let selectColorAndCapacitylabel = UILabel()
@@ -264,8 +264,8 @@ class ProductDetailsCell: UICollectionViewCell {
         return selectColorAndCapacitylabel
     }()
     
-// MARK: - Colors stackView
-
+    // MARK: - Colors stackView
+    
     let firstColorButton: UIButton = {
         let firstColorButton = UIButton()
         firstColorButton.backgroundColor = UIColor(red: 0.467, green: 0.175, blue: 0.012, alpha: 1)
@@ -294,7 +294,7 @@ class ProductDetailsCell: UICollectionViewCell {
         return colorsStackView
     }()
     
-//  MARK: - Capacity stackView
+    //  MARK: - Capacity stackView
     
     let firstCapacityButton: UIButton = {
         let firstCapacityButton = UIButton()
@@ -329,7 +329,7 @@ class ProductDetailsCell: UICollectionViewCell {
         return capacityStackView
     }()
     
-// MARK: - Colors and capacity stackview
+    // MARK: - Colors and capacity stackview
     
     let colorAndCapacityStackView: UIStackView = {
         let colorAndCapacityStackView = UIStackView()
@@ -345,7 +345,7 @@ class ProductDetailsCell: UICollectionViewCell {
         return addToCartButton
     }()
     
-// MARK: - Configure layout
+    // MARK: - Configure layout
     
     private func configureCellLayout() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -470,7 +470,6 @@ class ProductDetailsCell: UICollectionViewCell {
             colorAndCapacityStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 35),
             colorAndCapacityStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -35),
             
-            addToCartButton.heightAnchor.constraint(equalToConstant: 54),
             addToCartButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 359),
             addToCartButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
             addToCartButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -30),

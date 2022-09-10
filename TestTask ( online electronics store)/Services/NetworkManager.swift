@@ -13,7 +13,7 @@ class NetworkManager {
     
     func fetchCategories(completion: @escaping(Result<[Category], Error>)-> Void) {
         guard let path = Bundle.main.path(forResource: "Categories", ofType: "json") else {
-        completion(.failure(Errors.invalidPath))
+            completion(.failure(Errors.invalidPath))
             print("Error here")
             return
         }
@@ -23,12 +23,13 @@ class NetworkManager {
             guard let fetchedCategories = decodedData else {
                 return
             }
-           
+            
             DispatchQueue.main.async {
                 completion(.success(fetchedCategories))
-            } 
+            }
         }
     }
+    
     func fetchHotSales(completion: @escaping(Result<[HotSales], Error>)-> Void) {
         guard let url = URL(string: "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175") else {
             print("Error in url")
@@ -36,7 +37,9 @@ class NetworkManager {
         let urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
         URLSession.shared.dataTask(with: urlRequest)  {  data, responce, error in
             if let error = error {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             } else if let data = data {
                 let store = try? JSONDecoder().decode(Store
                     .self, from: data)
@@ -44,11 +47,10 @@ class NetworkManager {
                 DispatchQueue.main.async {
                     completion(.success(fetchedStore.hotSales))
                 }
-            } 
+            }
             
         } .resume()
     }
-    
     
     func fetchBestSeller(completion: @escaping(Result<[BestSeller], Error>)-> Void) {
         guard let url = URL(string: "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175") else {
@@ -57,7 +59,9 @@ class NetworkManager {
         let urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
         URLSession.shared.dataTask(with: urlRequest)  {  data, responce, error in
             if let error = error {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             } else if let data = data {
                 let store = try? JSONDecoder().decode(Store
                     .self, from: data)
@@ -77,7 +81,9 @@ class NetworkManager {
         let urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
         URLSession.shared.dataTask(with: urlRequest)  {  data, responce, error in
             if let error = error {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             } else if let data = data {
                 let productDetails = try? JSONDecoder().decode(ProductDetails
                     .self, from: data)
@@ -89,64 +95,4 @@ class NetworkManager {
             
         } .resume()
     }
-    
-//    func fetchProductImages(completion: @escaping(Result<[String], Error>)-> Void) {
-//        guard let url = URL(string: "https://run.mocky.io/v3/6c14c560-15c6-4248-b9d2-b4508df7d4f5") else {
-//            print("Error in url")
-//            return}
-//        let urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
-//        URLSession.shared.dataTask(with: urlRequest)  {  data, responce, error in
-//            if let error = error {
-//                completion(.failure(error))
-//            } else if let data = data {
-//                let productDetails = try? JSONDecoder().decode(ProductDetails
-//                    .self, from: data)
-//                guard let fetchedProductDetails = productDetails else {return}
-//                DispatchQueue.main.async {
-//                    completion(.success(fetchedProductDetails.images))
-//                }
-//            }
-//            
-//        } .resume()
-//    }
-//    
-//    func fetchProductColors(completion: @escaping(Result<[String], Error>)-> Void) {
-//        guard let url = URL(string: "https://run.mocky.io/v3/6c14c560-15c6-4248-b9d2-b4508df7d4f5") else {
-//            print("Error in url")
-//            return}
-//        let urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
-//        URLSession.shared.dataTask(with: urlRequest)  {  data, responce, error in
-//            if let error = error {
-//                completion(.failure(error))
-//            } else if let data = data {
-//                let productDetails = try? JSONDecoder().decode(ProductDetails
-//                    .self, from: data)
-//                guard let fetchedProductDetails = productDetails else {return}
-//                DispatchQueue.main.async {
-//                    completion(.success(fetchedProductDetails.color))
-//                }
-//            }
-//            
-//        } .resume()
-//    }
-//    
-//    func fetchProductCapacity(completion: @escaping(Result<[String], Error>)-> Void) {
-//        guard let url = URL(string: "https://run.mocky.io/v3/6c14c560-15c6-4248-b9d2-b4508df7d4f5") else {
-//            print("Error in url")
-//            return}
-//        let urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
-//        URLSession.shared.dataTask(with: urlRequest)  {  data, responce, error in
-//            if let error = error {
-//                completion(.failure(error))
-//            } else if let data = data {
-//                let productDetails = try? JSONDecoder().decode(ProductDetails
-//                    .self, from: data)
-//                guard let fetchedProductDetails = productDetails else {return}
-//                DispatchQueue.main.async {
-//                    completion(.success(fetchedProductDetails.capacity))
-//                }
-//            }
-//            
-//        } .resume()
-//    }
 }

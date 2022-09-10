@@ -24,12 +24,14 @@ class AddToCartButton: UIButton {
         priceLabel.attributedText = NSMutableAttributedString(string: "$0.00", attributes: [NSAttributedString.Key.kern: -0.33])
         return priceLabel
     }()
+    
     convenience init (price: String){
-        self.init()
+        self.init(type: .system)
         self.layer.backgroundColor = UIColor(red: 1, green: 0.429, blue: 0.304, alpha: 1).cgColor
         self.layer.cornerRadius = 10
         setUpLayout()
     }
+    
     private func setUpLayout() {
         addSubview(addToCartLabel)
         addSubview(priceLabel)
@@ -39,12 +41,10 @@ class AddToCartButton: UIButton {
         
         NSLayoutConstraint.activate([
             addToCartLabel.heightAnchor.constraint(equalToConstant: 25),
-
             addToCartLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 14),
             addToCartLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40),
             
             priceLabel.heightAnchor.constraint(equalToConstant: 25),
-
             priceLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 14),
             priceLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40)
         ])
@@ -53,5 +53,6 @@ class AddToCartButton: UIButton {
         let stringPrice = "$" + String(price) + ".00"
         let attributedPrice = NSMutableAttributedString(string: stringPrice, attributes: [NSAttributedString.Key.kern: -0.33])
         priceLabel.attributedText = attributedPrice
+        
     }
 }

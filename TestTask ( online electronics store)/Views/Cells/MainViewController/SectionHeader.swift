@@ -26,8 +26,8 @@ class SectionHeader: UICollectionReusableView {
         openButton.titleLabel?.font = UIFont(name: "MarkPro-Regular", size: 15)
         return openButton
     }()
-
-
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayout()
@@ -35,7 +35,7 @@ class SectionHeader: UICollectionReusableView {
         
     }
     override func layoutSubviews() {
-//        configureLayout()
+        //        configureLayout()
     }
     required init?(coder: NSCoder) {
         fatalError("Not implemented")
@@ -52,21 +52,16 @@ extension SectionHeader {
     private func configureLayout() {
         addSubview(titleLabel)
         addSubview(openButton)
-
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.heightAnchor.constraint(equalToConstant: 32).isActive = true
         titleLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
-        
         openButton.translatesAutoresizingMaskIntoConstraints = false
         openButton.heightAnchor.constraint(equalToConstant: 19).isActive = true
         openButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         openButton.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
-       
-
-        
     }
 }

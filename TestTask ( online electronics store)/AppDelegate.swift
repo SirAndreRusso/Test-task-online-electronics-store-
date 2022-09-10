@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -25,11 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         UINavigationBar.appearance().compactAppearance = navigationBarAppearance
                         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
                     
-                    let tabBarApperance = UITabBarAppearance()
-                    tabBarApperance.configureWithOpaqueBackground()
-                    tabBarApperance.backgroundColor = UIColor.defaultBackgroundColor()
-                    UITabBar.appearance().scrollEdgeAppearance = tabBarApperance
-                    UITabBar.appearance().standardAppearance = tabBarApperance
+//                    let tabBarApperance = UITabBarAppearance()
+//                    tabBarApperance.configureWithOpaqueBackground()
+//                    tabBarApperance.backgroundColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
+//                    UITabBar.appearance().scrollEdgeAppearance = tabBarApperance
+//                    UITabBar.appearance().standardAppearance = tabBarApperance
                 }
         return true
     }

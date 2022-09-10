@@ -25,19 +25,19 @@ class NavigationView: UIView {
     }()
     
     let leftButton: UIButton = {
-       let backButton = UIButton()
+        let backButton = UIButton()
         backButton.setImage(UIImage(named: "BackButton"), for: .normal)
         return backButton
     }()
     
     let rightButton: UIButton = {
-       let cartButton = UIButton()
+        let cartButton = UIButton()
         cartButton.setImage(UIImage(named: "CartButton"), for: .normal)
         return cartButton
     }()
     
     let title: UILabel = {
-       let title = UILabel()
+        let title = UILabel()
         title.backgroundColor = .clear
         title.textColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
         title.font = UIFont(name: "MarkPro-Medium", size: 18)
@@ -67,25 +67,23 @@ class NavigationView: UIView {
         title.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-        containerView.topAnchor.constraint(equalTo: self.topAnchor),
-        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-        containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-        containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-        
-        leftButton.heightAnchor.constraint(equalToConstant: 37),
-        leftButton.widthAnchor.constraint(equalToConstant: 37),
-        leftButton.topAnchor.constraint(equalTo: containerView.topAnchor),
-        leftButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 35),
- 
-        rightButton.heightAnchor.constraint(equalToConstant: 37),
-        rightButton.widthAnchor.constraint(equalToConstant: 37),
-        rightButton.topAnchor.constraint(equalTo: containerView.topAnchor),
-        rightButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -35),
-        
-        title.centerXAnchor.constraint(equalTo: centerXAnchor),
-        title.centerYAnchor.constraint(equalTo: centerYAnchor)
+            containerView.topAnchor.constraint(equalTo: self.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
+            leftButton.heightAnchor.constraint(equalToConstant: 37),
+            leftButton.widthAnchor.constraint(equalToConstant: 37),
+            leftButton.topAnchor.constraint(equalTo: containerView.topAnchor),
+            leftButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 35),
+            
+            rightButton.heightAnchor.constraint(equalToConstant: 37),
+            rightButton.widthAnchor.constraint(equalToConstant: 37),
+            rightButton.topAnchor.constraint(equalTo: containerView.topAnchor),
+            rightButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -35),
+            
+            title.centerXAnchor.constraint(equalTo: centerXAnchor),
+            title.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
-    
-    
 }

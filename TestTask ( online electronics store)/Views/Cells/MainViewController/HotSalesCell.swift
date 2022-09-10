@@ -49,7 +49,7 @@ class HotSalesCell: UICollectionViewCell {
         return subtitleLabel
     }()
     
-     let buyNowButton: UIButton = {
+    let buyNowButton: UIButton = {
         var buyNowButton = UIButton(type: .system)
         buyNowButton.backgroundColor = .white
         buyNowButton.setTitleColor(UIColor.black, for: .normal)

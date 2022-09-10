@@ -13,7 +13,6 @@ enum Errors {
 extension Errors: LocalizedError {
     var errorDescription: String? {
         switch self {
-            
         case .invalidPath:
             return NSLocalizedString("invalidPath", comment: "invalidPath to Categories.json")
         case .photoNotExists:

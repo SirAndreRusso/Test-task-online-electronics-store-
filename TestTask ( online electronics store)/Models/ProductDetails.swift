@@ -46,6 +46,6 @@ struct ProductColor: Codable, Hashable {
     let color: String
 }
 struct ProductCapacity: Codable, Hashable {
-    let capacity: String
+    let capacity: [String]
 }
 

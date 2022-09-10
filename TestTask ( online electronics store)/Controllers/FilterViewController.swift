@@ -35,7 +35,7 @@ class FilterViewController: UIViewController {
     lazy var doneButton: UIButton = {
         let doneButton = UIButton()
         doneButton.setImage(UIImage(named: "DoneButton"), for: .normal)
-        doneButton.addTarget(self, action: #selector(goToProductDetailsVC), for: .touchUpInside)
+        doneButton.addTarget(self, action: #selector(animateDismissView), for: .touchUpInside)
         return doneButton
     }()
     
@@ -91,7 +91,7 @@ class FilterViewController: UIViewController {
         return view
     }()
     
-    let maxDimmedAlpha: CGFloat = 0.6
+    let maxDimmedAlpha: CGFloat = 0
     lazy var dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -122,13 +122,7 @@ class FilterViewController: UIViewController {
         
     }
     
-    @objc private func goToProductDetailsVC() {
-        
-        let productDetailsVC = ProductDetailsViewController()
-
-        productDetailsVC.modalPresentationStyle = .fullScreen
-        self.present(productDetailsVC, animated: true)
-    }
+  
     private func setUpDropDown() {
         brandDropDown.anchorView = brandButton
         priceDropDown.anchorView = priceButton
@@ -357,8 +351,7 @@ class FilterViewController: UIViewController {
         UIView.animate(withDuration: 0.4) {
             self.dimmedView.alpha = 0
         } completion: { _ in
-            // once done, dismiss without animation
-            self.dismiss(animated: false)
+            self.dismiss(animated: true)
         }
         // hide main view by updating bottom constraint in animation block
         UIView.animate(withDuration: 0.3) {

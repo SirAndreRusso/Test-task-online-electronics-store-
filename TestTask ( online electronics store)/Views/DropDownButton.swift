@@ -27,7 +27,6 @@ class DropDownButton: UIButton {
         imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 15).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -14).isActive = true
         imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
-    //        brandDropButton.setImage(UIImage(named: "DropDownMark"), for: .normal)
        
         
         self.setAttributedTitle(atributedTitle, for: .normal)

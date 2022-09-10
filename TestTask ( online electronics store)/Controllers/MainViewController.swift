@@ -20,7 +20,7 @@ class MainViewController: UIViewController {
     var dataSource: UICollectionViewDiffableDataSource<SectionTypes, AnyHashable>?
     private var collectionView: UICollectionView?
     
-// MARK: - viewDidLoad()
+    // MARK: - viewDidLoad()
     
     override func viewDidLoad() {
         view.backgroundColor = .defaultBackgroundColor()
@@ -29,12 +29,15 @@ class MainViewController: UIViewController {
         createDiffableDatasource()
         createBarButtonItem()
     }
+    
+    // MARK: - viewWillAppear()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.shouldRemoveShadow(true)
     }
     
-// MARK: - createBarButtonItem()
+    // MARK: - Navigation
     
     private func createBarButtonItem() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "FilterImage")!.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(presentFilterVC))
@@ -47,25 +50,27 @@ class MainViewController: UIViewController {
         filterVC.modalPresentationStyle = .overCurrentContext
         self.present(filterVC, animated: false)
     }
+    
     @objc private func goToProductDetails() {
         let productDetailsVC = ProductDetailsViewController()
         navigationController?.pushViewController(productDetailsVC, animated: true)
     }
     
-// MARK: - fetchData()
+    // MARK: - fetchData()
     
     private func fetchData() {
+        
         NetworkManager.shared.fetchCategories { [weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let categories):
                 self.categories = categories
                 self.reloadData()
-                
             case .failure(let error):
                 self.showAlert(with: "Ошибка!", and: error.localizedDescription)
             }
         }
+        
         NetworkManager.shared.fetchHotSales { [weak self] result in
             guard let self = self else {return}
             switch result {
@@ -91,7 +96,11 @@ class MainViewController: UIViewController {
             }
         }
     }
-    
+}
+
+// MARK: - Setup collection view
+
+extension MainViewController {
     private func setUpCollectionView() {
         let layout = createCompositionalLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout )
@@ -110,13 +119,14 @@ class MainViewController: UIViewController {
         collection.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collection.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+    
     private func reloadData() {
-        var snapShop = NSDiffableDataSourceSnapshot<SectionTypes, AnyHashable>()
-        snapShop.appendSections([.categories, .hotSales, .bestSeller])
-        snapShop.appendItems(categories, toSection: .categories)
-        snapShop.appendItems(hotSales, toSection: .hotSales)
-        snapShop.appendItems(bestSeller, toSection: .bestSeller)
-        dataSource?.apply(snapShop, animatingDifferences: true)
+        var snapShot = NSDiffableDataSourceSnapshot<SectionTypes, AnyHashable>()
+        snapShot.appendSections([.categories, .hotSales, .bestSeller])
+        snapShot.appendItems(categories, toSection: .categories)
+        snapShot.appendItems(hotSales, toSection: .hotSales)
+        snapShot.appendItems(bestSeller, toSection: .bestSeller)
+        dataSource?.apply(snapShot, animatingDifferences: true)
     }
 }
 
@@ -193,7 +203,6 @@ extension MainViewController: UICollectionViewDelegate {
 // MARK: - Create compositional layout
 
 extension MainViewController {
-    
     private func createCompositionalLayout()-> UICollectionViewLayout{
         let layout = UICollectionViewCompositionalLayout {sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             guard let section = SectionTypes(rawValue: sectionIndex) else { fatalError("Unknown section")}
@@ -266,7 +275,6 @@ extension MainViewController {
         let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(32))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         sectionHeader.extendsBoundary = true
-        
         return sectionHeader
     }
 }

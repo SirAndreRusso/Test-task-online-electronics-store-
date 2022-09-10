@@ -17,7 +17,7 @@ class CategoryCell: UICollectionViewCell {
     }()
     
     var categoryLabel: UILabel = {
-       let categoryLabel = UILabel()
+        let categoryLabel = UILabel()
         categoryLabel.textColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
         categoryLabel.font = UIFont(name: "MarkPro-Medium", size: 12)
         categoryLabel.textAlignment = .center
@@ -26,7 +26,7 @@ class CategoryCell: UICollectionViewCell {
     }()
     
     private let orangeImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         imageView.layer.masksToBounds = true
@@ -36,7 +36,7 @@ class CategoryCell: UICollectionViewCell {
     }()
     
     private let whiteImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         imageView.layer.masksToBounds = true
@@ -52,7 +52,7 @@ class CategoryCell: UICollectionViewCell {
         parentView.addSubview(whiteImageView)
         parentView.addSubview(categoryLabel)
     }
- 
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -68,7 +68,7 @@ class CategoryCell: UICollectionViewCell {
         categoryLabel.text = category
         orangeImageView.image = UIImage(named: imageForPressed)
         whiteImageView.image = UIImage(named: imageForNormal)
-}
+    }
     
     
     func showImageView() {

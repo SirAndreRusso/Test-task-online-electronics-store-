@@ -25,7 +25,6 @@ class DetailsCustomView: UIView {
         let containerView = UIView()
         containerView.backgroundColor = .white
         containerView.clipsToBounds = true
-        
         return containerView
     }()
     
