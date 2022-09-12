@@ -15,7 +15,7 @@ class ProductDetailsCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = 30
-        self.clipsToBounds = true
+        self.layer.masksToBounds = true
         
         contentView.addSubview(containerView)
         containerView.addSubview(titleStackView)

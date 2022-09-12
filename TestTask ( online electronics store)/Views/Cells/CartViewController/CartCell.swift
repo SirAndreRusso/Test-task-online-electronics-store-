@@ -201,7 +201,9 @@ class CartCell: UICollectionViewCell {
     
     private func switchCellNotToEmpty(count: Int) {
         if count != 0 {
-            emptyCartView.removeFromSuperview()
+            emptyCartView.isHidden = true
+        } else {
+            emptyCartView.isHidden = false
         }
     }
 }

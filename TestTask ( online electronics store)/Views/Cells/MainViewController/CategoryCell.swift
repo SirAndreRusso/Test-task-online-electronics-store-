@@ -31,7 +31,7 @@ class CategoryCell: UICollectionViewCell {
         imageView.contentMode = .scaleToFill
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 71.0/2.0
-        imageView.backgroundColor = .specialOrange()
+        imageView.backgroundColor = UIColor(red: 1, green: 0.429, blue: 0.304, alpha: 1)
         return imageView
     }()
     

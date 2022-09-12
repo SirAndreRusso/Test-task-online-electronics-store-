@@ -113,7 +113,7 @@ class CartFooter: UICollectionReusableView {
         let stringCost = String(cost)
         costLabel.attributedText = NSMutableAttributedString(string: ["$", stringCost, " us"].joined(), attributes: [NSAttributedString.Key.kern: -0.33])
     }
-
+  
     func setUpLayout() {
         totalLabel.translatesAutoresizingMaskIntoConstraints = false
         deliveryLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -138,14 +138,14 @@ class CartFooter: UICollectionReusableView {
             breakLine1.widthAnchor.constraint(equalToConstant: bounds.width),
             breakLine1.topAnchor.constraint(equalTo: self.topAnchor),
             
+            breakLine2.topAnchor.constraint(equalTo: self.topAnchor, constant: 90),
             breakLine2.heightAnchor.constraint(equalToConstant: 1),
             breakLine2.widthAnchor.constraint(equalToConstant: bounds.width),
-            breakLine2.bottomAnchor.constraint(equalTo: checkOutButton.topAnchor, constant: -30),
             
             checkOutButton.heightAnchor.constraint(equalToConstant: 54),
             checkOutButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 45),
             checkOutButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -45),
-            checkOutButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15)
+            checkOutButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -42)
         ])
     }
 }

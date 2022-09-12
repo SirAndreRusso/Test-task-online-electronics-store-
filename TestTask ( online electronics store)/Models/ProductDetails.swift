@@ -21,7 +21,8 @@ struct ProductDetails: Codable, Hashable {
     let sd: String
     let ssd: String
     let title: String
-
+    var discountPrice: Int?
+    
     enum CodingKeys: String, CodingKey {
         case cpu = "CPU"
         case camera = "camera"
@@ -35,6 +36,7 @@ struct ProductDetails: Codable, Hashable {
         case sd = "sd"
         case ssd = "ssd"
         case title = "title"
+        case discountPrice = "discountPrice"
     }
    
     

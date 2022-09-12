@@ -1,8 +1,8 @@
 [
     {
         "category": "Phones",
-        "imageForNormal": "Phones",
-        "imageForPressed": "PhonesPressed"
+        "imageForNormal": "Phone",
+        "imageForPressed": "PhonePressed"
     },
     {
         "category": "Computer",

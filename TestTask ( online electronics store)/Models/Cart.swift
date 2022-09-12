@@ -12,8 +12,3 @@ struct Cart: Hashable, Codable {
     var products: [Product]
 }
 
-struct Product:  Hashable, Codable {
-    var productDetails: ProductDetails
-    var delivery: String
-    var count: Int
-}

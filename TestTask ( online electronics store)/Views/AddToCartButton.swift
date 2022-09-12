@@ -27,8 +27,13 @@ class AddToCartButton: UIButton {
     
     convenience init (price: String){
         self.init(type: .system)
-        self.layer.backgroundColor = UIColor(red: 1, green: 0.429, blue: 0.304, alpha: 1).cgColor
+//        self.layer.backgroundColor = UIColor(red: 1, green: 0.429, blue: 0.304, alpha: 1).cgColor
         self.layer.cornerRadius = 10
+        self.configuration = .filled()
+        self.tintColor = UIColor(red: 1, green: 0.429, blue: 0.304, alpha: 1)
+        self.becomeFirstResponder()
+        
+        
         setUpLayout()
     }
     

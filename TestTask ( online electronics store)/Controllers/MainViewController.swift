@@ -53,6 +53,13 @@ class MainViewController: UIViewController {
     
     @objc private func goToProductDetails() {
         let productDetailsVC = ProductDetailsViewController()
+        
+        // Костыльное решение, так как API не предоставляет цену со скидкой для экрана Product details
+        for bestseller in bestSeller {
+            if bestseller.title == "Samsung Galaxy s20 Ultra" {
+                productDetailsVC.discountPrice = bestseller.priceWithoutDiscount
+            }
+        }
         navigationController?.pushViewController(productDetailsVC, animated: true)
     }
     
@@ -134,7 +141,6 @@ extension MainViewController {
 
 extension MainViewController {
     private func createDiffableDatasource()  {
-        fetchData()
         dataSource = UICollectionViewDiffableDataSource<SectionTypes, AnyHashable>(collectionView: collectionView!, cellProvider: {  (collectionView, indexPath, item) -> UICollectionViewCell? in
             guard let section = SectionTypes(rawValue: indexPath.section) else {
                 fatalError("Unknown section kind")}
@@ -178,24 +184,6 @@ extension MainViewController {
                 sectionHeader.configure(titleLabel: "Best Seller", buttonTitle: "see more")
                 return sectionHeader
             }
-        }
-    }
-}
-
-//MARK: - UICillectionView Delegate
-
-extension MainViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-            cell.hideImageView()
-            cell.categoryLabel.textColor = .specialOrange()
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-            cell.showImageView()
-            cell.categoryLabel.textColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
         }
     }
 }
@@ -244,7 +232,6 @@ extension MainViewController {
         let width = CGFloat(view.bounds.width) - 40
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(width), heightDimension: .absolute(182))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = view.bounds.width - width
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20)
@@ -261,11 +248,9 @@ extension MainViewController {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
         let spacing = CGFloat(12)
         group.interItemSpacing = .fixed(spacing)
-        
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 12
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20)
-        
         let sectionHeader = createSectionHeader()
         section.boundarySupplementaryItems = [sectionHeader]
         return section
@@ -276,5 +261,35 @@ extension MainViewController {
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         sectionHeader.extendsBoundary = true
         return sectionHeader
+    }
+}
+
+//MARK: - UICollectionView Delegate
+
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
+            cell.hideImageView()
+            cell.categoryLabel.textColor = UIColor(red: 1, green: 0.429, blue: 0.304, alpha: 1)
+        }
+        
+        if collectionView.cellForItem(at: indexPath) is BestSellerCell {
+            print("HEY HEY")
+            let productDetailsVC = ProductDetailsViewController()
+            // Костыльное решение, так как API не предоставляет цену со скидкой для экрана Product details
+            for bestseller in bestSeller {
+                if bestseller.title == "Samsung Galaxy s20 Ultra" {
+                    productDetailsVC.discountPrice = bestseller.priceWithoutDiscount
+                } else {print("No MATCH")}
+            }
+            
+            navigationController?.pushViewController(productDetailsVC, animated: true)
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
+            cell.showImageView()
+            cell.categoryLabel.textColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
+        }
     }
 }

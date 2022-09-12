@@ -9,8 +9,11 @@ import Foundation
 import UIKit
 import SDWebImage
 
-class ProductDetailsViewController: UIViewController {
+class ProductDetailsViewController: UIViewController, ProductDetailsVCProtocol {
+    
     var productDetails: ProductDetails?
+    // Костыльное решение, так как API не предоставляет цену со скидкой для экрана Product details
+    var discountPrice: Int?
     private var productImages: [String]?
     private var productColors: [String]?
     private var productCapacity: [String]?
@@ -76,20 +79,22 @@ class ProductDetailsViewController: UIViewController {
         guard let productDetails = productDetails else {
             return
         }
-        
         let navC = tabBarController?.viewControllers?[1] as! UINavigationController
         for vc in navC.viewControllers {
             if var cartVC = vc as? CartVCProtocol {
                 if cartVC.cart.products[0].count == 0 {
-                    print("SUCCESS")
+                    print("New product appended")
                     cartVC.cart.products = []
                     let product = Product(productDetails: productDetails, delivery: "Free", count: 1)
                     cartVC.cart.products.append(product)
                     cartVC.reloadData()
+                    tabBarController?.tabBar.items![1].badgeValue = "1"
                 } else {
-                    print("SUCCESS TOO")
+                    print("Product count increased by 1")
                     cartVC.cart.products[0].count += 1
                     cartVC.reloadData()
+                    let stringCount = String(cartVC.cart.products[0].count)
+                    tabBarController?.tabBar.items![1].badgeValue = stringCount
                 }
             }
         }
@@ -97,7 +102,7 @@ class ProductDetailsViewController: UIViewController {
     
     // MARK: - Fetch data
     
-    private func fetchData() {
+     func fetchData() {
         NetworkManager.shared.fetchProductDetails { [weak self] result in
             guard let self = self else {return}
             switch result {
@@ -106,9 +111,7 @@ class ProductDetailsViewController: UIViewController {
                 self.productImages = productDetails.images
                 self.productColors = productDetails.color
                 self.productCapacity = productDetails.capacity
-                print("product images count: \(self.productImages!.count)")
-                print("product Colors count: \(self.productColors!.count)")
-                print("product Capacity count: \(self.productCapacity!.count)")
+                self.productDetails?.discountPrice = self.discountPrice
                 self.reloadData()
             case .failure(let error):
                 self.showAlert(with: "Ошибка!", and: error.localizedDescription)
@@ -168,7 +171,6 @@ extension ProductDetailsViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0)
         section.orthogonalScrollingBehavior = .groupPagingCentered
-        print("Section is made")
         return section
     }
     
@@ -180,7 +182,6 @@ extension ProductDetailsViewController {
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0)
-        print("Section is made")
         return section
     }
 }
@@ -199,15 +200,14 @@ extension ProductDetailsViewController {
                 if let productImage = item as? String {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductImageCell.identifier, for: indexPath) as! ProductImageCell
                     cell.configure(picture: productImage)
-                    print("imagelink: \(productImage)")
                     return cell
                 } else { print("something wrong") ; return nil}
             case .productDetailsSection:
                 if let productDetails = item as? ProductDetails {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductDetailsCell.identifier, for: indexPath) as! ProductDetailsCell
-                    cell.configure(title: productDetails.title, isFavourites: productDetails.isFavorites, rating: productDetails.rating, cpu: productDetails.cpu, camera: productDetails.camera, ssd: productDetails.ssd, sd: productDetails.sd, price: productDetails.price)
+                    cell.configure(title: productDetails.title, isFavourites: productDetails.isFavorites, rating: productDetails.rating, cpu: productDetails.cpu, camera: productDetails.camera, ssd: productDetails.ssd, sd: productDetails.sd, price: productDetails.discountPrice ?? productDetails.price)
                     cell.addToCartButton.addTarget(self, action: #selector(self.addToCart), for: .touchUpInside)
-                    print("GOT PRODUCTDETAILS CELL!!!")
+                    print("product details cell configured")
                     return cell
                 } else { print("something wrong") ; return nil}
             }

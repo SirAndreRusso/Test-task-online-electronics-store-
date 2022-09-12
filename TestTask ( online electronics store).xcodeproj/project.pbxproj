@@ -13,6 +13,8 @@
 		B43EB3ED28C7C653007380F7 /* EmptyCartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43EB3EC28C7C653007380F7 /* EmptyCartView.swift */; };
 		B43EB3F028CC7350007380F7 /* CartViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43EB3EF28CC7350007380F7 /* CartViewControllerProtocol.swift */; };
 		B43EB3F228CC86A8007380F7 /* CartHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43EB3F128CC86A8007380F7 /* CartHeader.swift */; };
+		B47C450628CE69600072B4B0 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47C450528CE69600072B4B0 /* Product.swift */; };
+		B47C450828CF5F370072B4B0 /* ProductDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47C450728CF5F370072B4B0 /* ProductDetailsProtocol.swift */; };
 		B47F3E2A28B391BE000EA9FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47F3E2928B391BE000EA9FD /* AppDelegate.swift */; };
 		B47F3E2C28B391BE000EA9FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47F3E2B28B391BE000EA9FD /* SceneDelegate.swift */; };
 		B47F3E2E28B391BE000EA9FD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47F3E2D28B391BE000EA9FD /* MainViewController.swift */; };
@@ -22,7 +24,6 @@
 		B4F3E80128B3C2740004C641 /* Mark-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4F3E80028B3C2740004C641 /* Mark-Pro.ttf */; };
 		B4F3E80528B3C5C30004C641 /* Mark-Pro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4F3E80428B3C5C30004C641 /* Mark-Pro-Bold.ttf */; };
 		B4F3E80728B3C5CE0004C641 /* MarkPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4F3E80628B3C5CE0004C641 /* MarkPro-Regular.ttf */; };
-		B4F3E80928B3D5A20004C641 /* UIStackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3E80828B3D5A20004C641 /* UIStackView + Extension.swift */; };
 		B4F3E80E28B4EA250004C641 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3E80D28B4EA250004C641 /* CategoryCell.swift */; };
 		B4F3E81028B57DE30004C641 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3E80F28B57DE30004C641 /* UIColor + Extension.swift */; };
 		B4F3E81528B617EE0004C641 /* BestSellerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3E81428B617EE0004C641 /* BestSellerCell.swift */; };
@@ -31,7 +32,6 @@
 		B4F61C2A28BC06FF0078473B /* SF-Pro-Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4F61C2928BC06FF0078473B /* SF-Pro-Display-Bold.ttf */; };
 		B4F61C2C28BC07750078473B /* SF-Pro-Display-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4F61C2B28BC07750078473B /* SF-Pro-Display-Regular.ttf */; };
 		B4F61C2E28BC1CE20078473B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B4F61C2D28BC1CE20078473B /* .gitignore */; };
-		B4F61C3028BC25750078473B /* UIBarButtonItem + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F61C2F28BC25750078473B /* UIBarButtonItem + Extension.swift */; };
 		B4F61C3228BCBACC0078473B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F61C3128BCBACC0078473B /* FilterViewController.swift */; };
 		B4F61C3628BCC4CE0078473B /* UINavigationBar + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F61C3528BCC4CE0078473B /* UINavigationBar + Extension.swift */; };
 		B4F61C3A28BE18D30078473B /* DropDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F61C3928BE18D30078473B /* DropDownButton.swift */; };
@@ -65,6 +65,8 @@
 		B43EB3EC28C7C653007380F7 /* EmptyCartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCartView.swift; sourceTree = "<group>"; };
 		B43EB3EF28CC7350007380F7 /* CartViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewControllerProtocol.swift; sourceTree = "<group>"; };
 		B43EB3F128CC86A8007380F7 /* CartHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHeader.swift; sourceTree = "<group>"; };
+		B47C450528CE69600072B4B0 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		B47C450728CF5F370072B4B0 /* ProductDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsProtocol.swift; sourceTree = "<group>"; };
 		B47F3E2628B391BE000EA9FD /* TestTask ( online electronics store).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestTask ( online electronics store).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47F3E2928B391BE000EA9FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B47F3E2B28B391BE000EA9FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +78,6 @@
 		B4F3E80028B3C2740004C641 /* Mark-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro.ttf"; sourceTree = "<group>"; };
 		B4F3E80428B3C5C30004C641 /* Mark-Pro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro-Bold.ttf"; sourceTree = "<group>"; };
 		B4F3E80628B3C5CE0004C641 /* MarkPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MarkPro-Regular.ttf"; sourceTree = "<group>"; };
-		B4F3E80828B3D5A20004C641 /* UIStackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extension.swift"; sourceTree = "<group>"; };
 		B4F3E80D28B4EA250004C641 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		B4F3E80F28B57DE30004C641 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		B4F3E81428B617EE0004C641 /* BestSellerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestSellerCell.swift; sourceTree = "<group>"; };
@@ -85,7 +86,6 @@
 		B4F61C2928BC06FF0078473B /* SF-Pro-Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.ttf"; sourceTree = "<group>"; };
 		B4F61C2B28BC07750078473B /* SF-Pro-Display-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.ttf"; sourceTree = "<group>"; };
 		B4F61C2D28BC1CE20078473B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		B4F61C2F28BC25750078473B /* UIBarButtonItem + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem + Extension.swift"; sourceTree = "<group>"; };
 		B4F61C3128BCBACC0078473B /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		B4F61C3528BCC4CE0078473B /* UINavigationBar + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar + Extension.swift"; sourceTree = "<group>"; };
 		B4F61C3928BE18D30078473B /* DropDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownButton.swift; sourceTree = "<group>"; };
@@ -137,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				B43EB3EF28CC7350007380F7 /* CartViewControllerProtocol.swift */,
+				B47C450728CF5F370072B4B0 /* ProductDetailsProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -207,10 +208,8 @@
 			isa = PBXGroup;
 			children = (
 				B47F3E4228B39A03000EA9FD /* UIFont + Extension.swift */,
-				B4F3E80828B3D5A20004C641 /* UIStackView + Extension.swift */,
 				B4F3E80F28B57DE30004C641 /* UIColor + Extension.swift */,
 				B4F7D64128B805D900192D95 /* ViewController + Extension.swift */,
-				B4F61C2F28BC25750078473B /* UIBarButtonItem + Extension.swift */,
 				B4F61C3528BCC4CE0078473B /* UINavigationBar + Extension.swift */,
 				B43EB3E628C52340007380F7 /* UIView + Extension.swift */,
 				B43EB3EE28CC7325007380F7 /* Protocols */,
@@ -249,6 +248,7 @@
 				B4F61C3D28BE569A0078473B /* Category.swift */,
 				B4F61C3F28BE56BF0078473B /* HotSales.swift */,
 				B4F61C4128BE57EF0078473B /* ProductDetails.swift */,
+				B47C450528CE69600072B4B0 /* Product.swift */,
 				B4F61C5E28C38D2B0078473B /* Cart.swift */,
 			);
 			path = Models;
@@ -440,14 +440,13 @@
 				B4F3E81528B617EE0004C641 /* BestSellerCell.swift in Sources */,
 				B4F61C4028BE56BF0078473B /* HotSales.swift in Sources */,
 				B4F3E80E28B4EA250004C641 /* CategoryCell.swift in Sources */,
-				B4F61C3028BC25750078473B /* UIBarButtonItem + Extension.swift in Sources */,
 				B4F61C3228BCBACC0078473B /* FilterViewController.swift in Sources */,
 				B43EB3E928C75D69007380F7 /* MainTabBarController.swift in Sources */,
+				B47C450628CE69600072B4B0 /* Product.swift in Sources */,
 				B4F61C5028C266260078473B /* NavigationView.swift in Sources */,
 				B4F61C4828BEAA460078473B /* ProductDetailsCell.swift in Sources */,
 				B4F61C3E28BE569A0078473B /* Category.swift in Sources */,
 				B4F7D64028B7DFCA00192D95 /* SectionHeader.swift in Sources */,
-				B4F3E80928B3D5A20004C641 /* UIStackView + Extension.swift in Sources */,
 				B47F3E2A28B391BE000EA9FD /* AppDelegate.swift in Sources */,
 				B4F61C4C28BF527D0078473B /* AddToCartButton.swift in Sources */,
 				B4F61C3C28BE565E0078473B /* Store.swift in Sources */,
@@ -458,6 +457,7 @@
 				B4F61C3A28BE18D30078473B /* DropDownButton.swift in Sources */,
 				B4F61C5F28C38D2B0078473B /* Cart.swift in Sources */,
 				B4F61C5228C2736F0078473B /* CartViewController.swift in Sources */,
+				B47C450828CF5F370072B4B0 /* ProductDetailsProtocol.swift in Sources */,
 				B4F61C3628BCC4CE0078473B /* UINavigationBar + Extension.swift in Sources */,
 				B47F3E2C28B391BE000EA9FD /* SceneDelegate.swift in Sources */,
 				B4F61C4428BE5BD10078473B /* ProductDetailsViewController.swift in Sources */,
