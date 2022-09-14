@@ -1,5 +1,5 @@
 //
-//  CartFooter.swift
+//  BasketFooter.swift
 //  TestTask ( online electronics store)
 //
 //  Created by Андрей Русин on 03.09.2022.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-class CartFooter: UICollectionReusableView {
-    static let identifier = "CartFooter"
+class BasketFooter: UICollectionReusableView {
+    static let identifier = "BasketFooter"
     let breakLine1: UIView = {
        let breakLine = UIView()
         breakLine.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2).cgColor
@@ -87,7 +87,7 @@ class CartFooter: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        roundCorners(corners: [.bottomLeft, .bottomRight], radius: 30)
+        roundCorners([.bottomLeft, .bottomRight], radius: 30)
     }
     
     override init(frame: CGRect) {

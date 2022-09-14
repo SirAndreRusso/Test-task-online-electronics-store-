@@ -17,6 +17,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsVCProtocol {
     private var productImages: [String]?
     private var productColors: [String]?
     private var productCapacity: [String]?
+    private var productCount: Int = 0
     private var collectionView: UICollectionView?
     enum SectionTypes: Int, CaseIterable, Hashable {
         case productImageSection
@@ -79,24 +80,31 @@ class ProductDetailsViewController: UIViewController, ProductDetailsVCProtocol {
         guard let productDetails = productDetails else {
             return
         }
-        let navC = tabBarController?.viewControllers?[1] as! UINavigationController
-        for vc in navC.viewControllers {
-            if var cartVC = vc as? CartVCProtocol {
-                if cartVC.cart.products[0].count == 0 {
-                    print("New product appended")
-                    cartVC.cart.products = []
-                    let product = Product(productDetails: productDetails, delivery: "Free", count: 1)
-                    cartVC.cart.products.append(product)
-                    cartVC.reloadData()
-                    tabBarController?.tabBar.items![1].badgeValue = "1"
-                } else {
-                    print("Product count increased by 1")
-                    cartVC.cart.products[0].count += 1
-                    cartVC.reloadData()
-                    let stringCount = String(cartVC.cart.products[0].count)
-                    tabBarController?.tabBar.items![1].badgeValue = stringCount
-                }
-            }
+//        let navC = tabBarController?.viewControllers?[1] as! UINavigationController
+//        for vc in navC.viewControllers {
+//            if var basketVC = vc as? BasketVCProtocol {
+//                if basketVC.cart.products[0].count == 0 {
+//                    print("New product appended")
+//                    basketVC.cart.products = []
+//                    let product = Product(productDetails: productDetails, delivery: "Free", count: 1)
+//                    basketVC.cart.products.append(product)
+//                    basketVC.reloadData()
+//                    tabBarController?.tabBar.items![1].badgeValue = "1"
+//                } else {
+//                    print("Product count increased by 1")
+//                    basketVC.cart.products[0].count += 1
+//                    basketVC.reloadData()
+//                    let stringCount = String(basketVC.cart.products[0].count)
+//                    tabBarController?.tabBar.items![1].badgeValue = stringCount
+//                }
+//            }
+//        }
+        if productCount == 0 {
+            tabBarController?.tabBar.items![1].badgeValue = "1"
+            productCount += 1
+        } else {
+            tabBarController?.tabBar.items![1].badgeValue = String(productCount)
+            productCount += 1
         }
     }
     

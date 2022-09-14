@@ -25,7 +25,7 @@ class MainTabBarController: UITabBarController {
     private func generateTabBar() {
         viewControllers = [
             UINavigationController(rootViewController: generateVC(viewController: MainViewController(), title: "Main", image: UIImage(named: "house"), selectedImage: UIImage(named: "house"))),
-            UINavigationController(rootViewController: generateVC(viewController: CartViewController(), title: "Cart", image: UIImage(named: "BigCart"), selectedImage: UIImage(named: "BigCart")))
+            UINavigationController(rootViewController: generateVC(viewController: BasketViewController(), title: "Cart", image: UIImage(named: "BigCart"), selectedImage: UIImage(named: "BigCart")))
         ]
     }
     

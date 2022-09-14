@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SDWebImage
 
-class CartCell: UICollectionViewCell {
+class BasketCell: UICollectionViewCell {
     static let identifier = "CartCell"
     
     var productCount: Int = 0
@@ -101,8 +101,8 @@ class CartCell: UICollectionViewCell {
         return cellStackView
     }()
     
-    let emptyCartView: EmptyCartView = {
-        let emptyCartview = EmptyCartView()
+    let emptyCartView: EmptyBasketView = {
+        let emptyCartview = EmptyBasketView()
         return emptyCartview
         
     }()
@@ -149,10 +149,7 @@ class CartCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        roundCorners(corners: [.topLeft, .topRight], radius: 30)
-    }
+   
     
     private func setUpLayout() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -170,9 +167,10 @@ class CartCell: UICollectionViewCell {
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             cellStackView.heightAnchor.constraint(equalToConstant: 90),
-            cellStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 80),
+            cellStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 22),
             cellStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 25),
             cellStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -25),
+            cellStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -22),
             
             productImageView.heightAnchor.constraint(equalToConstant: 88),
             productImageView.widthAnchor.constraint(equalToConstant: 88),

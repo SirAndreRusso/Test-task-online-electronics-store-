@@ -1,5 +1,5 @@
 //
-//  CartViewController.swift
+//  BasketViewController.swift
 //  TestTask ( online electronics store)
 //
 //  Created by Андрей Русин on 02.09.2022.
@@ -8,24 +8,20 @@
 import Foundation
 import UIKit
 
-class CartViewController: UIViewController, CartVCProtocol {
+class BasketViewController: UIViewController, BasketVCProtocol {
     
     private var collectionView: UICollectionView?
     
-    var cart: Cart = Cart(products: [Product(productDetails: ProductDetails(cpu: "", camera: "", capacity: [""], color: [""], id: "'", images: [""], isFavorites: false, price: 0, rating: 0, sd: "", ssd: "", title: ""),
-                                             delivery: "Free",
-                                             count: 0)])
+    var basket: Basket?
+    var products: [Product]? {
+        guard let basket = basket else {
+            return nil
+        }
+        return basket.basket
+    }
+    
     enum Sections: Int, CaseIterable, Hashable {
         case product
-        func calculateTotalCost(cart: Cart) -> Double {
-            switch self {
-            case .product:
-                guard let totalDiscountCost = cart.products[0].totalDiscountCost else {
-                    return Double(cart.products[0].totalCost)
-                }
-                return Double(totalDiscountCost)
-            }
-        }
     }
     var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>?
     
@@ -34,6 +30,8 @@ class CartViewController: UIViewController, CartVCProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .defaultBackgroundColor()
+        fetchBasket()
+        print("sdcdf \(basket?.total)")
         setUpNavigationView()
         setUpCollectionView()
         createDiffableDatasource()
@@ -82,22 +80,37 @@ class CartViewController: UIViewController, CartVCProtocol {
             self.dismiss(animated: true)
         }
     }
+    
+    private func fetchBasket() {
+        NetworkManager.shared.fetchBasket { [weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let basket):
+                self.basket = basket
+                print(basket.delivery)
+                self.reloadData()
+            case .failure(let error):
+                self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        }
+    }
 }
 
 // MARK: Set up collection view
 
-extension CartViewController {
+extension BasketViewController {
     
     private func setUpCollectionView() {
         let layout = createCompositionalLayout()
         print(" \(layout.description)")
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout )
-        collectionView?.register(CartCell.self, forCellWithReuseIdentifier: CartCell.identifier)
-        collectionView?.register(CartFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CartFooter.identifier)
-        collectionView?.register(CartHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CartHeader.identifier)
+        collectionView?.register(BasketCell.self, forCellWithReuseIdentifier: BasketCell.identifier)
+        collectionView?.register(BasketFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: BasketFooter.identifier)
+        collectionView?.register(BasketHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: BasketHeader.identifier)
         collectionView?.showsHorizontalScrollIndicator = false
         collectionView?.delegate = self
         collectionView?.backgroundColor = .defaultBackgroundColor()
+        
         guard let collection = collectionView else {print("Collection view is Nil") ;return }
         view.addSubview(collection)
         collection.translatesAutoresizingMaskIntoConstraints = false
@@ -110,7 +123,7 @@ extension CartViewController {
 
 //MARK: - Create diffable datasource
 
-extension CartViewController {
+extension BasketViewController {
     
     private func createDiffableDatasource()  {
         dataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>(collectionView: collectionView!, cellProvider: {  [weak self](collectionView, indexPath, item) -> UICollectionViewCell? in
@@ -120,12 +133,11 @@ extension CartViewController {
             switch section {
             case .product:
                 if let product = item as? Product  {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CartCell.identifier, for: indexPath) as! CartCell
-                    cell.configure(title: product.productDetails.title, price: product.productDetails.discountPrice ?? product.productDetails.price, picture: product.productDetails.images[0], count: product.count)
-                    print("product.count: \(product.count)")
-                    cell.plusButton.addTarget(self, action: #selector(self.plusAction), for: .touchUpInside)
-                    cell.minusButton.addTarget(self, action: #selector(self.minusAction), for: .touchUpInside)
-                    cell.deleteButton.addTarget(self, action: #selector(self.deleteAction), for: .touchUpInside)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketCell.identifier, for: indexPath) as! BasketCell
+                    cell.configure(title: product.title, price: product.price, picture: product.images, count: 1)
+//                    cell.plusButton.addTarget(self, action: #selector(self.plusAction), for: .touchUpInside)
+//                    cell.minusButton.addTarget(self, action: #selector(self.minusAction), for: .touchUpInside)
+//                    cell.deleteButton.addTarget(self, action: #selector(self.deleteAction), for: .touchUpInside)
                     return cell
                 } else {
                     return nil}
@@ -142,26 +154,27 @@ extension CartViewController {
             
             if kind == UICollectionView.elementKindSectionFooter {
                 print("Footer is HERR")
-                guard let sectionFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CartFooter.identifier, for: indexPath) as? CartFooter
+                guard let sectionFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BasketFooter.identifier, for: indexPath) as? BasketFooter
                 else {fatalError("Can not create new section footer")}
                 print("WTF")
                 guard let section = Sections(rawValue: indexPath.section)
                 else {fatalError("Unknown section kind")}
                 switch section {
                 case .product:
-                    
+                    guard let basket = self.basket else {return nil}
                     print("Footer is updating")
-                    sectionFooter.configure(cost: section.calculateTotalCost(cart: self.cart))
+                    sectionFooter.configure(cost: Double(basket.total))
                     return sectionFooter
                 }
             }
             
             if kind == UICollectionView.elementKindSectionHeader {
                 print("HEADER IS HERR")
-                guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CartHeader.identifier, for: indexPath) as? CartHeader
+                guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BasketHeader.identifier, for: indexPath) as? BasketHeader
                 else {fatalError("Can not create new section header")}
                 switch section {
                 case .product:
+                    
                     sectionHeader.configure(text: "My Cart")
                     return sectionHeader
                 }
@@ -173,15 +186,17 @@ extension CartViewController {
     
     func reloadData() {
         var snapShot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
+        if basket != nil {
         snapShot.appendSections([Sections.product])
-        snapShot.appendItems(cart.products, toSection: .product)
+            snapShot.appendItems(basket!.basket, toSection: .product)
         dataSource?.applySnapshotUsingReloadData(snapShot)
+        }
     }
 }
 
 // MARK: - Create compositional layout
 
-extension CartViewController {
+extension BasketViewController {
     
     private func createCompositionalLayout() -> UICollectionViewLayout {
         let config = UICollectionViewCompositionalLayoutConfiguration()
@@ -191,15 +206,18 @@ extension CartViewController {
     }
     
     private func createProductSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(134))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupWidth = view.bounds.width
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(groupWidth), heightDimension: .estimated(454))
-        var count = 1
-        if cart.products.count > count {count = cart.products.count}
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: count)
+//        var count = 1
+//        if basket != nil {
+//        count = basket!.basket.count
+//        }
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 45
+        section.interGroupSpacing = 0
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         let sectionHeader = createSectionHeader()
         let sectionFooter = createSectionFooter()
@@ -208,7 +226,7 @@ extension CartViewController {
     }
     
     private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(140))
+        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(220))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         sectionHeader.extendsBoundary = true
         return sectionHeader
@@ -221,33 +239,35 @@ extension CartViewController {
     }
 }
 
-extension CartViewController {
-    @objc private func plusAction() {
-        print("\(self.cart.products[0].totalCost)")
-        self.cart.products[0].count += 1
-        print("\(self.cart.products[0].totalCost)")
-        reloadData()
-    }
-    
-    @objc private func minusAction() {
-        print("\(self.cart.products[0].totalCost)")
-        if cart.products[0].count > 0 {
-        self.cart.products[0].count -= 1
-            print("\(self.cart.products[0].totalCost)")
-            reloadData()
-        }
-        reloadData()
-    }
-    
-    @objc private func deleteAction() {
-        print("\(self.cart.products[0].totalCost)")
-        self.cart.products[0].count = 0
-        print("\(self.cart.products[0].totalCost)")
-        reloadData()
-    }
-}
+
+
+//extension CartViewController {
+//    @objc private func plusAction() {
+//        print("\(self.cart.products[0].totalCost)")
+//        self.cart.products[0].count += 1
+//        print("\(self.cart.products[0].totalCost)")
+//        reloadData()
+//    }
+//
+//    @objc private func minusAction() {
+//        print("\(self.cart.products[0].totalCost)")
+//        if cart.products[0].count > 0 {
+//        self.cart.products[0].count -= 1
+//            print("\(self.cart.products[0].totalCost)")
+//            reloadData()
+//        }
+//        reloadData()
+//    }
+//
+//    @objc private func deleteAction() {
+//        print("\(self.cart.products[0].totalCost)")
+//        self.cart.products[0].count = 0
+//        print("\(self.cart.products[0].totalCost)")
+//        reloadData()
+//    }
+//}
 
 // MARK: - UICollectionViewDelegate
 
-extension CartViewController: UICollectionViewDelegate{}
+extension BasketViewController: UICollectionViewDelegate{}
 

@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class EmptyCartView: UIView {
+class EmptyBasketView: UIView {
     let emptyCartView: UIView = {
         let emptyCartView = UIView()
         emptyCartView.backgroundColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
-        emptyCartView.layer.cornerRadius = 30
+//        emptyCartView.layer.cornerRadius = 30
         emptyCartView.layer.masksToBounds = true
         return emptyCartView
     }()

@@ -95,4 +95,26 @@ class NetworkManager {
             
         } .resume()
     }
+    
+    func fetchBasket(completion: @escaping(Result<Basket, Error>)-> Void) {
+        guard let url = URL(string: "https://run.mocky.io/v3/53539a72-3c5f-4f30-bbb1-6ca10d42c149") else {
+            print("Error in url")
+            return}
+        let urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
+        URLSession.shared.dataTask(with: urlRequest)  {  data, responce, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            } else if let data = data {
+                let basket = try? JSONDecoder().decode(Basket
+                    .self, from: data)
+                guard let fetchedBasket = basket else {return}
+                DispatchQueue.main.async {
+                    completion(.success(fetchedBasket))
+                }
+            }
+            
+        } .resume()
+    }
 }

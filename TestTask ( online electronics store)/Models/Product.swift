@@ -8,14 +8,8 @@
 import Foundation
 
 struct Product:  Hashable, Codable {
-    var productDetails: ProductDetails
-    var delivery: String
-    var count: Int
-    var totalCost: Int {
-        productDetails.price * count
-    }
-    var totalDiscountCost: Int? {
-        guard let discountPrice = productDetails.discountPrice else {return nil}
-           return discountPrice * count
-    }
+    let id: Int
+        let images: String
+        let price: Int
+        let title: String
 }
