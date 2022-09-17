@@ -25,7 +25,7 @@ class HotSalesCell: UICollectionViewCell {
         newImageView.clipsToBounds = true
         newImageView.contentMode = .scaleToFill
         newImageView.layer.masksToBounds = true
-        newImageView.layer.cornerRadius = 27.0/2.0
+        newImageView.layer.cornerRadius = newImageView.bounds.width/2.0
         newImageView.backgroundColor = nil
         return newImageView
     }()
