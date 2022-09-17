@@ -77,34 +77,14 @@ class ProductDetailsViewController: UIViewController, ProductDetailsVCProtocol {
     }
     
     @objc private func addToCart() {
-        guard let productDetails = productDetails else {
-            return
-        }
-//        let navC = tabBarController?.viewControllers?[1] as! UINavigationController
-//        for vc in navC.viewControllers {
-//            if var basketVC = vc as? BasketVCProtocol {
-//                if basketVC.cart.products[0].count == 0 {
-//                    print("New product appended")
-//                    basketVC.cart.products = []
-//                    let product = Product(productDetails: productDetails, delivery: "Free", count: 1)
-//                    basketVC.cart.products.append(product)
-//                    basketVC.reloadData()
-//                    tabBarController?.tabBar.items![1].badgeValue = "1"
-//                } else {
-//                    print("Product count increased by 1")
-//                    basketVC.cart.products[0].count += 1
-//                    basketVC.reloadData()
-//                    let stringCount = String(basketVC.cart.products[0].count)
-//                    tabBarController?.tabBar.items![1].badgeValue = stringCount
-//                }
-//            }
-//        }
+        
         if productCount == 0 {
-            tabBarController?.tabBar.items![1].badgeValue = "1"
             productCount += 1
-        } else {
             tabBarController?.tabBar.items![1].badgeValue = String(productCount)
+        } else {
             productCount += 1
+            tabBarController?.tabBar.items![1].badgeValue = String(productCount)
+            
         }
     }
     
@@ -187,7 +167,7 @@ extension ProductDetailsViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(450))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0)
         return section

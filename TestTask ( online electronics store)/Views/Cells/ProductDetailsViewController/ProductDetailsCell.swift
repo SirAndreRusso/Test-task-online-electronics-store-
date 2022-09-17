@@ -114,7 +114,7 @@ class ProductDetailsCell: UICollectionViewCell {
         titleLabel.numberOfLines = 0
         titleLabel.textColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
         titleLabel.attributedText = NSMutableAttributedString(string: "Title", attributes: [NSAttributedString.Key.kern: -0.33])
-        titleLabel.font = UIFont(name: "MarkPro-Medium", size: 23)
+        titleLabel.font = UIFont(name: "MarkPro-Medium", size: 21)
         return titleLabel
     }()
     

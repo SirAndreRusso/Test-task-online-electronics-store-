@@ -64,6 +64,10 @@ class CategoryCell: UICollectionViewCell {
         
     }
     
+    override func prepareForReuse() {
+        showImageView()
+    }
+    
     public func configure(category: String, imageForNormal: String, imageForPressed: String ) {
         categoryLabel.text = category
         orangeImageView.image = UIImage(named: imageForPressed)
@@ -73,12 +77,13 @@ class CategoryCell: UICollectionViewCell {
     
     func showImageView() {
         whiteImageView.alpha = 1.0
-        categoryLabel.textColor = UIColor(red: 1, green: 0.429, blue: 0.304, alpha: 1)
+        categoryLabel.textColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
     }
     
     func hideImageView() {
         whiteImageView.alpha = 0.0
-        categoryLabel.textColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
+        categoryLabel.textColor = UIColor(red: 1, green: 0.429, blue: 0.304, alpha: 1)
+        
     }
     private func configureCellLayout() {
         orangeImageView.translatesAutoresizingMaskIntoConstraints = false

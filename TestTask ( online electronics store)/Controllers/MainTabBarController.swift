@@ -41,10 +41,9 @@ class MainTabBarController: UITabBarController {
     
     private func setTabBarAppearance() {
         let appearence = UITabBarAppearance()
-        appearence.backgroundImage = UIImage()
+        appearence.configureWithOpaqueBackground()
         appearence.backgroundColor = .clear
-        appearence.shadowImage = UIImage()
-        
+
         setTabBarItemBadgeAppearance(appearence.stackedLayoutAppearance)
         setTabBarItemBadgeAppearance(appearence.inlineLayoutAppearance)
         setTabBarItemBadgeAppearance(appearence.compactInlineLayoutAppearance)
@@ -53,6 +52,7 @@ class MainTabBarController: UITabBarController {
         setTabBarItemColors(appearence.inlineLayoutAppearance)
         setTabBarItemColors(appearence.compactInlineLayoutAppearance)
         
+        tabBar.scrollEdgeAppearance = appearence
         tabBar.standardAppearance = appearence
         
         let positionOnX: CGFloat = 5
@@ -62,21 +62,36 @@ class MainTabBarController: UITabBarController {
         let roundLayer = CAShapeLayer()
         let bezierPath = UIBezierPath(roundedRect: CGRect(x: positionOnX, y: positionOnY, width: width, height: height), cornerRadius: 30)
         roundLayer.path = bezierPath.cgPath
+        
         tabBar.layer.insertSublayer(roundLayer, at: 0)
         tabBar.itemWidth = width/2
         tabBar.itemPositioning = .fill
         roundLayer.fillColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1).cgColor
-        tabBar.layer.backgroundColor = nil
+        
+        tabBar.layer.masksToBounds = true
+        
+        
         
     }
+    
+    private func setNavigationBarAppearence() {
+        @available(iOS 15, *)
+        let navigationBarAppearance: UINavigationBarAppearance = UINavigationBarAppearance()
+            navigationBarAppearance.configureWithOpaqueBackground()
+            navigationBarAppearance.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor : UIColor.white
+            ]
+            navigationBarAppearance.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+            UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+            UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+    }
+    
     
     @available(iOS 13.0, *)
     private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance) {
         itemAppearance.normal.iconColor = .white
-//        itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray]
-
         itemAppearance.selected.iconColor = UIColor(red: 1, green: 0.429, blue: 0.304, alpha: 1)
-//        itemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
     }
 
     @available(iOS 13.0, *)

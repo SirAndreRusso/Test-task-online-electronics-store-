@@ -31,7 +31,6 @@ class BasketViewController: UIViewController, BasketVCProtocol {
         super.viewDidLoad()
         view.backgroundColor = .defaultBackgroundColor()
         fetchBasket()
-        print("sdcdf \(basket?.total)")
         setUpNavigationView()
         setUpCollectionView()
         createDiffableDatasource()
@@ -126,8 +125,7 @@ extension BasketViewController {
 extension BasketViewController {
     
     private func createDiffableDatasource()  {
-        dataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>(collectionView: collectionView!, cellProvider: {  [weak self](collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let self = self else {return nil}
+        dataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>(collectionView: collectionView!, cellProvider: {  (collectionView, indexPath, item) -> UICollectionViewCell? in
             guard let section = Sections(rawValue: indexPath.section) else {
                 fatalError("Unknown section kind")}
             switch section {
@@ -135,9 +133,6 @@ extension BasketViewController {
                 if let product = item as? Product  {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketCell.identifier, for: indexPath) as! BasketCell
                     cell.configure(title: product.title, price: product.price, picture: product.images, count: 1)
-//                    cell.plusButton.addTarget(self, action: #selector(self.plusAction), for: .touchUpInside)
-//                    cell.minusButton.addTarget(self, action: #selector(self.minusAction), for: .touchUpInside)
-//                    cell.deleteButton.addTarget(self, action: #selector(self.deleteAction), for: .touchUpInside)
                     return cell
                 } else {
                     return nil}
@@ -153,23 +148,19 @@ extension BasketViewController {
             else {fatalError("Unknown section kind")}
             
             if kind == UICollectionView.elementKindSectionFooter {
-                print("Footer is HERR")
                 guard let sectionFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BasketFooter.identifier, for: indexPath) as? BasketFooter
                 else {fatalError("Can not create new section footer")}
-                print("WTF")
                 guard let section = Sections(rawValue: indexPath.section)
                 else {fatalError("Unknown section kind")}
                 switch section {
                 case .product:
                     guard let basket = self.basket else {return nil}
-                    print("Footer is updating")
                     sectionFooter.configure(cost: Double(basket.total))
                     return sectionFooter
                 }
             }
             
             if kind == UICollectionView.elementKindSectionHeader {
-                print("HEADER IS HERR")
                 guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BasketHeader.identifier, for: indexPath) as? BasketHeader
                 else {fatalError("Can not create new section header")}
                 switch section {
@@ -210,10 +201,6 @@ extension BasketViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupWidth = view.bounds.width
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(groupWidth), heightDimension: .estimated(454))
-//        var count = 1
-//        if basket != nil {
-//        count = basket!.basket.count
-//        }
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
@@ -238,34 +225,6 @@ extension BasketViewController {
         return sectionFooter
     }
 }
-
-
-
-//extension CartViewController {
-//    @objc private func plusAction() {
-//        print("\(self.cart.products[0].totalCost)")
-//        self.cart.products[0].count += 1
-//        print("\(self.cart.products[0].totalCost)")
-//        reloadData()
-//    }
-//
-//    @objc private func minusAction() {
-//        print("\(self.cart.products[0].totalCost)")
-//        if cart.products[0].count > 0 {
-//        self.cart.products[0].count -= 1
-//            print("\(self.cart.products[0].totalCost)")
-//            reloadData()
-//        }
-//        reloadData()
-//    }
-//
-//    @objc private func deleteAction() {
-//        print("\(self.cart.products[0].totalCost)")
-//        self.cart.products[0].count = 0
-//        print("\(self.cart.products[0].totalCost)")
-//        reloadData()
-//    }
-//}
 
 // MARK: - UICollectionViewDelegate
 
