@@ -9,11 +9,13 @@ import Foundation
 import UIKit
 
 class BasketViewController: UIViewController, BasketVCProtocol {
+    var basket: (any BasketProtocol)?
+    
     
     private var collectionView: UICollectionView?
     
-    var basket: Basket?
-    var products: [Product]? {
+    
+    var products: [any ProductProtocol]? {
         guard let basket = basket else {
             return nil
         }
@@ -130,7 +132,7 @@ extension BasketViewController {
                 fatalError("Unknown section kind")}
             switch section {
             case .product:
-                if let product = item as? Product  {
+                if let product = item as? any ProductProtocol  {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketCell.identifier, for: indexPath) as! BasketCell
                     cell.configure(title: product.title, price: product.price, picture: product.images, count: 1)
                     return cell
@@ -177,11 +179,11 @@ extension BasketViewController {
     
     func reloadData() {
         var snapShot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
-        if basket != nil {
+        guard let basket = basket?.basket as? [AnyHashable] else {return}
         snapShot.appendSections([Sections.product])
-            snapShot.appendItems(basket!.basket, toSection: .product)
+            snapShot.appendItems(basket, toSection: .product)
         dataSource?.applySnapshotUsingReloadData(snapShot)
-        }
+        
     }
 }
 

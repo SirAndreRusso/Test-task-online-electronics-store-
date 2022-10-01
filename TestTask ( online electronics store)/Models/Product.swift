@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Product:  Hashable, Codable {
+struct Product:  ProductProtocol {
     let id: Int
-        let images: String
-        let price: Int
-        let title: String
+    let images: String
+    let price: Int
+    let title: String
 }

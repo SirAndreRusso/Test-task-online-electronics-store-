@@ -7,13 +7,14 @@
 
 import Foundation
 
-struct BestSeller: Codable,Hashable {
-    let id: Int
-    let isFavorites: Bool
-    let title: String
-    let priceWithoutDiscount: Int
-    let discountPrice: Int
-    let picture: String
+struct BestSeller: BestSellerProtocol {
+    var id: Int
+    var isFavorites: Bool
+    var title: String
+    var priceWithoutDiscount: Int
+    var discountPrice: Int
+    var picture: String
+    
     
     enum CodingKeys: String, CodingKey {
         case id = "id"

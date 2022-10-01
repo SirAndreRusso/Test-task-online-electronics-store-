@@ -6,13 +6,13 @@
 //
 
 import Foundation
-struct HotSales: Codable, Hashable {
-    let id: Int
-    let isNew: Bool?
-    let title: String
-    let subtitle: String
-    let picture: String
-    let isBuy: Bool
+struct HotSales: HotSalesProtocol {
+    var id: Int
+    var isNew: Bool?
+    var title: String
+    var subtitle: String
+    var picture: String
+    var isBuy: Bool
     
     enum CodingKeys: String, CodingKey {
         case id = "id"

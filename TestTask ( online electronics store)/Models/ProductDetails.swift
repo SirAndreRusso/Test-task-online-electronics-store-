@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProductDetails: Codable, Hashable {
+struct ProductDetails: ProductDetailsProtocol {
     
     let cpu: String
     let camera: String
@@ -38,16 +38,4 @@ struct ProductDetails: Codable, Hashable {
         case title = "title"
         case discountPrice = "discountPrice"
     }
-   
-    
 }
-struct ProductImage: Codable, Hashable {
-    let image: String
-}
-struct ProductColor: Codable, Hashable {
-    let color: String
-}
-struct ProductCapacity: Codable, Hashable {
-    let capacity: [String]
-}
-

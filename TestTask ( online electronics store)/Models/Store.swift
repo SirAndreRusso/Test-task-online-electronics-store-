@@ -6,10 +6,12 @@
 //
 import Foundation
 
-struct Store: Codable, Hashable {
-    let hotSales: [HotSales]
-    let bestSeller: [BestSeller]
-    
+struct Store<H: HotSalesProtocol, B: BestSellerProtocol>: StoreProtocol {
+    typealias hotSales = H
+    typealias bestSeller = B
+    var hotSales: [hotSales]
+    var bestSeller: [bestSeller]
+   
     enum CodingKeys: String, CodingKey {
         case hotSales = "home_store"
         case bestSeller = "best_seller"

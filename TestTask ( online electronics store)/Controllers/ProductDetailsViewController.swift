@@ -10,8 +10,8 @@ import UIKit
 import SDWebImage
 
 class ProductDetailsViewController: UIViewController, ProductDetailsVCProtocol {
+    var productDetails: (any ProductDetailsProtocol)?
     
-    var productDetails: ProductDetails?
     // Костыльное решение, так как API не предоставляет цену со скидкой для экрана Product details
     var discountPrice: Int?
     private var productImages: [String]?
@@ -77,15 +77,8 @@ class ProductDetailsViewController: UIViewController, ProductDetailsVCProtocol {
     }
     
     @objc private func addToCart() {
-        
-        if productCount == 0 {
             productCount += 1
             tabBarController?.tabBar.items![1].badgeValue = String(productCount)
-        } else {
-            productCount += 1
-            tabBarController?.tabBar.items![1].badgeValue = String(productCount)
-            
-        }
     }
     
     // MARK: - Fetch data
@@ -191,7 +184,7 @@ extension ProductDetailsViewController {
                     return cell
                 } else { print("something wrong") ; return nil}
             case .productDetailsSection:
-                if let productDetails = item as? ProductDetails {
+                if let productDetails = item as? any ProductDetailsProtocol {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductDetailsCell.identifier, for: indexPath) as! ProductDetailsCell
                     cell.configure(title: productDetails.title, isFavourites: productDetails.isFavorites, rating: productDetails.rating, cpu: productDetails.cpu, camera: productDetails.camera, ssd: productDetails.ssd, sd: productDetails.sd, price: productDetails.discountPrice ?? productDetails.price)
                     cell.addToCartButton.addTarget(self, action: #selector(self.addToCart), for: .touchUpInside)
@@ -203,8 +196,9 @@ extension ProductDetailsViewController {
     }
     
     private func reloadData() {
-        guard let productImages = self.productImages,
-              let productDetails = self.productDetails else {return}
+        guard let productImages = productImages,
+              let productDetails = self.productDetails as? AnyHashable  else {return}
+        
         var snapShop = NSDiffableDataSourceSnapshot<SectionTypes, AnyHashable>()
         snapShop.appendSections([.productImageSection, .productDetailsSection])
         snapShop.appendItems(productImages, toSection: .productImageSection)

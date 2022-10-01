@@ -8,5 +8,5 @@
 import Foundation
 
 protocol BasketVCProtocol {
-    var basket: Basket? {get set}
+    var basket: (any BasketProtocol)? {get set}
 }

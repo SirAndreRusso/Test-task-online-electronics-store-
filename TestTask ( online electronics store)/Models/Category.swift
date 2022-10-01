@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Category: Codable, Hashable {
+struct Category: CategoryProtocol {
     var category: String
     var imageForNormal: String
     var imageForPressed: String

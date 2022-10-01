@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ProductDetailsVCProtocol {
-    var productDetails: ProductDetails? {get set}
+    var productDetails: (any ProductDetailsProtocol)? {get set}
     var discountPrice: Int? {get set}
     func fetchData()
 }

@@ -11,7 +11,7 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
-    func fetchCategories(completion: @escaping(Result<[Category], Error>)-> Void) {
+    func fetchCategories(completion: @escaping(Result<[any CategoryProtocol], Error>)-> Void) {
         guard let path = Bundle.main.path(forResource: "Categories", ofType: "json") else {
             completion(.failure(Errors.invalidPath))
             print("Error here")
@@ -25,12 +25,12 @@ class NetworkManager {
             }
             
             DispatchQueue.main.async {
-                completion(.success(fetchedCategories))
+                completion(.success(fetchedCategories as [any CategoryProtocol]))
             }
         }
     }
     
-    func fetchHotSales(completion: @escaping(Result<[HotSales], Error>)-> Void) {
+    func fetchHotSales(completion: @escaping(Result<[any HotSalesProtocol], Error>)-> Void) {
         guard let url = URL(string: "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175") else {
             print("Error in url")
             return}
@@ -41,18 +41,18 @@ class NetworkManager {
                     completion(.failure(error))
                 }
             } else if let data = data {
-                let store = try? JSONDecoder().decode(Store
+                let store = try? JSONDecoder().decode(Store<HotSales, BestSeller>
                     .self, from: data)
                 guard let fetchedStore = store else {return}
                 DispatchQueue.main.async {
-                    completion(.success(fetchedStore.hotSales))
+                    completion(.success(fetchedStore.hotSales as [any HotSalesProtocol]))
                 }
             }
             
         } .resume()
     }
     
-    func fetchBestSeller(completion: @escaping(Result<[BestSeller], Error>)-> Void) {
+    func fetchBestSeller(completion: @escaping(Result<[any BestSellerProtocol], Error>)-> Void) {
         guard let url = URL(string: "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175") else {
             print("Error in url")
             return}
@@ -63,18 +63,18 @@ class NetworkManager {
                     completion(.failure(error))
                 }
             } else if let data = data {
-                let store = try? JSONDecoder().decode(Store
+                let store = try? JSONDecoder().decode(Store<HotSales, BestSeller>
                     .self, from: data)
                 guard let fetchedStore = store else {return}
                 DispatchQueue.main.async {
-                    completion(.success(fetchedStore.bestSeller))
+                    completion(.success(fetchedStore.bestSeller as [any BestSellerProtocol]))
                 }
             }
             
         } .resume()
     }
     
-    func fetchProductDetails(completion: @escaping(Result<ProductDetails, Error>)-> Void) {
+    func fetchProductDetails(completion: @escaping(Result<any ProductDetailsProtocol, Error>)-> Void) {
         guard let url = URL(string: "https://run.mocky.io/v3/6c14c560-15c6-4248-b9d2-b4508df7d4f5") else {
             print("Error in url")
             return}
@@ -89,14 +89,14 @@ class NetworkManager {
                     .self, from: data)
                 guard let fetchedProductDetails = productDetails else {return}
                 DispatchQueue.main.async {
-                    completion(.success(fetchedProductDetails))
+                    completion(.success(fetchedProductDetails as any ProductDetailsProtocol))
                 }
             }
             
         } .resume()
     }
     
-    func fetchBasket(completion: @escaping(Result<Basket, Error>)-> Void) {
+    func fetchBasket(completion: @escaping(Result<any BasketProtocol, Error>)-> Void) {
         guard let url = URL(string: "https://run.mocky.io/v3/53539a72-3c5f-4f30-bbb1-6ca10d42c149") else {
             print("Error in url")
             return}
@@ -107,7 +107,7 @@ class NetworkManager {
                     completion(.failure(error))
                 }
             } else if let data = data {
-                let basket = try? JSONDecoder().decode(Basket
+                let basket = try? JSONDecoder().decode(Basket <Product>
                     .self, from: data)
                 guard let fetchedBasket = basket else {return}
                 DispatchQueue.main.async {

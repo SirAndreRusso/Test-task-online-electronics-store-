@@ -7,8 +7,11 @@
 
 import Foundation
 
-struct Basket: Hashable, Codable {
-    let basket: [Product]
-    let delivery, id: String
+struct Basket<P: ProductProtocol>: BasketProtocol {
+    typealias product = P
+    var basket: [P]
+    let delivery: String
+    var id: String
     let total: Int
 }
+

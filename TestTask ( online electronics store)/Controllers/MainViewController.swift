@@ -9,9 +9,9 @@ import UIKit
 import SDWebImage
 
 class MainViewController: UIViewController {
-    var categories: [Category] = []
-    var hotSales: [HotSales] = []
-    var bestSeller: [BestSeller] = []
+    var categories: [any CategoryProtocol] = []
+    var hotSales: [any HotSalesProtocol] = []
+    var bestSeller: [any BestSellerProtocol] = []
     enum SectionTypes: Int, CaseIterable, Hashable {
         case categories
         case hotSales
@@ -129,6 +129,9 @@ extension MainViewController {
     
     private func reloadData() {
         var snapShot = NSDiffableDataSourceSnapshot<SectionTypes, AnyHashable>()
+        guard let categories = categories as? [AnyHashable],
+              let hotSales = hotSales as? [AnyHashable],
+              let bestSeller = bestSeller as? [AnyHashable] else {return}
         snapShot.appendSections([.categories, .hotSales, .bestSeller])
         snapShot.appendItems(categories, toSection: .categories)
         snapShot.appendItems(hotSales, toSection: .hotSales)
@@ -146,20 +149,20 @@ extension MainViewController {
                 fatalError("Unknown section kind")}
             switch section {
             case .categories:
-                if let categories = item as? Category {
+                if let categories = item as? any CategoryProtocol {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
                     cell.configure(category: categories.category, imageForNormal: categories.imageForNormal, imageForPressed: categories.imageForPressed)
                     return cell
                 } else {return nil}
             case .hotSales:
-                if let hotSales = item as? HotSales {
+                if let hotSales = item as? any HotSalesProtocol {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotSalesCell.identifier, for: indexPath) as! HotSalesCell
                     cell.configure(isNew: hotSales.isNew, title: hotSales.title, subtitle: hotSales.subtitle, picture: hotSales.picture, isBuy: hotSales.isBuy)
                     cell.buyNowButton.addTarget(self, action: #selector(self.goToProductDetails), for: .touchUpInside)
                     return cell
                 } else {return nil}
             case .bestSeller:
-                if let bestSeller = item as? BestSeller {
+                if let bestSeller = item as? any BestSellerProtocol {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BestSellerCell.identifier, for: indexPath) as! BestSellerCell
                     cell.configure(isFavourites: bestSeller.isFavorites, title: bestSeller.title, priceWithoutDiscount: bestSeller.priceWithoutDiscount, discountPrice: bestSeller.discountPrice, picture: bestSeller.picture)
                     return cell
@@ -274,13 +277,12 @@ extension MainViewController: UICollectionViewDelegate {
         }
         
         if collectionView.cellForItem(at: indexPath) is BestSellerCell {
-            print("HEY HEY")
             let productDetailsVC = ProductDetailsViewController()
             // Костыльное решение, так как API не предоставляет цену со скидкой для экрана Product details
             for bestseller in bestSeller {
                 if bestseller.title == "Samsung Galaxy s20 Ultra" {
                     productDetailsVC.discountPrice = bestseller.priceWithoutDiscount
-                } else {print("No MATCH")}
+                } 
             }
             
             navigationController?.pushViewController(productDetailsVC, animated: true)
