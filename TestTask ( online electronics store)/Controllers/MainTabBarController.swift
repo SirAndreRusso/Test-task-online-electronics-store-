@@ -10,17 +10,22 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
+    //MARK: - viewDidLoad
+    
     override func viewDidLoad() {
         generateTabBar()
         setTabBarAppearance()
     }
     
+    //MARK: - viewWillAppear
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let tabBarItemsAppearence = UITabBarItemAppearance()
         tabBarItemsAppearence.normal.badgePositionAdjustment = UIOffset(horizontal: -15, vertical: -15)
-        
     }
+    
+    //MARK: - generate and setup tabbar
     
     private func generateTabBar() {
         viewControllers = [
@@ -69,9 +74,6 @@ class MainTabBarController: UITabBarController {
         roundLayer.fillColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1).cgColor
         
         tabBar.layer.masksToBounds = true
-        
-        
-        
     }
     
     private func setNavigationBarAppearence() {
@@ -86,7 +88,6 @@ class MainTabBarController: UITabBarController {
             UINavigationBar.appearance().compactAppearance = navigationBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
-    
     
     @available(iOS 13.0, *)
     private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance) {

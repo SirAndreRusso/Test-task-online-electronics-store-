@@ -108,16 +108,13 @@ class BasketCell: UICollectionViewCell {
     }()
     
     public func configure(title: String, price: Int,  picture: String, count: Int) {
-        print("CELL IS CONFIGURING WITH \(count)")
+//        print("CELL IS CONFIGURING WITH \(count)")
         switchCellNotToEmpty(count: count)
         titleLabel.attributedText = NSMutableAttributedString(string: title, attributes: [NSAttributedString.Key.kern: -0.33])
         priceLabel.attributedText = NSMutableAttributedString(string: ["$", String(price), ".00"].joined(), attributes: [NSAttributedString.Key.kern: -0.33])
         guard let url = URL(string: picture) else {return}
         productImageView.sd_setImage(with: url)
         countLabel.attributedText = NSMutableAttributedString(string: String(count), attributes: [NSAttributedString.Key.kern: -0.33])
-        
-        
-        
     }
     
     override init(frame: CGRect) {
@@ -149,7 +146,6 @@ class BasketCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-   
     
     private func setUpLayout() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -174,14 +170,10 @@ class BasketCell: UICollectionViewCell {
             
             productImageView.heightAnchor.constraint(equalToConstant: 88),
             productImageView.widthAnchor.constraint(equalToConstant: 88),
-            //        productImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            //        productImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
-            
             
             titleAndPriceStackView.heightAnchor.constraint(equalToConstant: 80),
             titleAndPriceStackView.widthAnchor.constraint(equalToConstant: 153),
-            //        titleAndPriceStackView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            
+         
             plusMinusStackView.heightAnchor.constraint(equalToConstant: 73),
             plusMinusStackView.widthAnchor.constraint(equalToConstant: 26),
             
@@ -192,8 +184,6 @@ class BasketCell: UICollectionViewCell {
             emptyCartView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             emptyCartView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             emptyCartView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-            
-            
         ])
     }
     

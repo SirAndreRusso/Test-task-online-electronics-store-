@@ -1,5 +1,5 @@
 //
-//  ViewController + Extension.swift
+//  UIViewController + Extension.swift
 //  TestTask ( online electronics store)
 //
 //  Created by Андрей Русин on 25.08.2022.

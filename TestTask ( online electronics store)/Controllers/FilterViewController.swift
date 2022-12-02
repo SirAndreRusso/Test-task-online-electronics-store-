@@ -9,7 +9,8 @@ import UIKit
 
 import DropDown
 
-class FilterViewController: UIViewController {
+class FilterViewController: UIViewController, CoordinatingProtocol {
+    var coordinator: Coordinator?
     
     let brandDropDown = DropDown()
     let priceDropDown = DropDown()
@@ -119,8 +120,16 @@ class FilterViewController: UIViewController {
         dimmedView.addGestureRecognizer(tapGesture)
         setupPanGesture()
         setUpDropDown()
-        
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        tabBarController?.tabBar.isHidden = true
+//    }
+//    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        tabBarController?.tabBar.isHidden = false
+//    }
     
   
     private func setUpDropDown() {
@@ -359,5 +368,7 @@ class FilterViewController: UIViewController {
             // call this to trigger refresh constraint
             self.view.layoutIfNeeded()
         }
+        // make tabbar visible
+            self.coordinator?.eventOccured(with: .closeFilterVC)
     }
 }

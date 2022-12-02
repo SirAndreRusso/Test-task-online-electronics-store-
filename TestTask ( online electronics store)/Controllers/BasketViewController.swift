@@ -8,14 +8,16 @@
 import Foundation
 import UIKit
 
-class BasketViewController: UIViewController, BasketVCProtocol {
-    var basket: (any BasketProtocol)?
+class BasketViewController: UIViewController, CoordinatingProtocol {
+    var coordinator: Coordinator?
+    
+    var basket: Basket<Product>?
     
     
     private var collectionView: UICollectionView?
     
     
-    var products: [any ProductProtocol]? {
+    var products: [Product]? {
         guard let basket = basket else {
             return nil
         }
@@ -88,7 +90,6 @@ class BasketViewController: UIViewController, BasketVCProtocol {
             switch result {
             case .success(let basket):
                 self.basket = basket
-                print(basket.delivery)
                 self.reloadData()
             case .failure(let error):
                 self.showAlert(with: "Ошибка!", and: error.localizedDescription)
@@ -132,7 +133,7 @@ extension BasketViewController {
                 fatalError("Unknown section kind")}
             switch section {
             case .product:
-                if let product = item as? any ProductProtocol  {
+                if let product = item as? Product  {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketCell.identifier, for: indexPath) as! BasketCell
                     cell.configure(title: product.title, price: product.price, picture: product.images, count: 1)
                     return cell
@@ -144,7 +145,7 @@ extension BasketViewController {
         dataSource?.supplementaryViewProvider = {
             
             [weak self] collectionView, kind, indexPath in
-            print("Supplementary is updating")
+//            print("Supplementary is updating")
             guard let self = self else {print("Self is nil"); return nil}
             guard let section = Sections(rawValue: indexPath.section)
             else {fatalError("Unknown section kind")}
@@ -179,7 +180,7 @@ extension BasketViewController {
     
     func reloadData() {
         var snapShot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
-        guard let basket = basket?.basket as? [AnyHashable] else {return}
+        guard let basket = basket?.basket else {return}
         snapShot.appendSections([Sections.product])
             snapShot.appendItems(basket, toSection: .product)
         dataSource?.applySnapshotUsingReloadData(snapShot)

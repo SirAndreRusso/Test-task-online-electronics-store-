@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class BasketCollectionBackgroundView: UIView {
-    let basketBGView: UIView = {
+    let basketCBGView: UIView = {
         let basketBGView = UIView()
         basketBGView.backgroundColor = UIColor(red: 0.004, green: 0, blue: 0.208, alpha: 1)
         basketBGView.layer.cornerRadius = 30
@@ -19,7 +19,7 @@ class BasketCollectionBackgroundView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(basketBGView)
+        addSubview(basketCBGView)
         setUpLayout()
     }
     
@@ -28,13 +28,13 @@ class BasketCollectionBackgroundView: UIView {
     }
     
     private func setUpLayout() {
-        basketBGView.translatesAutoresizingMaskIntoConstraints = false
+        basketCBGView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            basketBGView.topAnchor.constraint(equalTo: self.topAnchor),
-            basketBGView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            basketBGView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            basketBGView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            basketCBGView.topAnchor.constraint(equalTo: self.topAnchor),
+            basketCBGView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            basketCBGView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            basketCBGView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
 }

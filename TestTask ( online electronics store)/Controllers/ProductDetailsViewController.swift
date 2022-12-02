@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 import SDWebImage
 
-class ProductDetailsViewController: UIViewController, ProductDetailsVCProtocol {
-    var productDetails: (any ProductDetailsProtocol)?
+class ProductDetailsViewController: UIViewController, CoordinatingProtocol {
+    var coordinator: Coordinator?
+    
+    var productDetails: ProductDetails?
     
     // Костыльное решение, так как API не предоставляет цену со скидкой для экрана Product details
     var discountPrice: Int?
@@ -56,7 +58,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsVCProtocol {
         view.addSubview(navigationView)
         navigationView.translatesAutoresizingMaskIntoConstraints = false
         if navigationController?.viewControllers.last is ProductDetailsViewController {
-            navigationView.rightButton.addTarget(self, action: #selector(goToCart), for: .touchUpInside)
+            navigationView.rightButton.addTarget(self, action: #selector(goTobasket), for: .touchUpInside)
             navigationView.leftButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
         }
         NSLayoutConstraint.activate([
@@ -71,9 +73,8 @@ class ProductDetailsViewController: UIViewController, ProductDetailsVCProtocol {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func goToCart() {
-        let navC = tabBarController?.viewControllers?[1] as! UINavigationController
-        tabBarController?.selectedViewController = navC
+    @objc private func goTobasket() {
+        coordinator?.eventOccured(with: .goToBasketVC)
     }
     
     @objc private func addToCart() {
@@ -184,7 +185,7 @@ extension ProductDetailsViewController {
                     return cell
                 } else { print("something wrong") ; return nil}
             case .productDetailsSection:
-                if let productDetails = item as? any ProductDetailsProtocol {
+                if let productDetails = item as? ProductDetails {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductDetailsCell.identifier, for: indexPath) as! ProductDetailsCell
                     cell.configure(title: productDetails.title, isFavourites: productDetails.isFavorites, rating: productDetails.rating, cpu: productDetails.cpu, camera: productDetails.camera, ssd: productDetails.ssd, sd: productDetails.sd, price: productDetails.discountPrice ?? productDetails.price)
                     cell.addToCartButton.addTarget(self, action: #selector(self.addToCart), for: .touchUpInside)
@@ -197,7 +198,7 @@ extension ProductDetailsViewController {
     
     private func reloadData() {
         guard let productImages = productImages,
-              let productDetails = self.productDetails as? AnyHashable  else {return}
+              let productDetails = self.productDetails else {return}
         
         var snapShop = NSDiffableDataSourceSnapshot<SectionTypes, AnyHashable>()
         snapShop.appendSections([.productImageSection, .productDetailsSection])
